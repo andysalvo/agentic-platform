@@ -4,6 +4,8 @@ Expert skill files that make AI agents measurably better at specific tasks.
 
 An MCP server providing curated context packages with auditable provenance.
 
+[![agentic-platform MCP server](https://glama.ai/mcp/servers/andysalvo/agentic-platform/badges/card.svg)](https://glama.ai/mcp/servers/andysalvo/agentic-platform)
+
 ## Available Skills
 
 | Skill | Description |
