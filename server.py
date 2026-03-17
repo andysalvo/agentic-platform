@@ -8,10 +8,9 @@ Governance: No Silent Inference, Auditability, Explicit Authority Transfer.
 These apply to the platform itself, not just its users.
 """
 
-import hashlib
-import hmac
 import json
 import os
+from contextlib import asynccontextmanager
 
 import stripe
 from mcp.server.fastmcp import FastMCP
@@ -89,6 +88,8 @@ mcp = FastMCP(
 def register() -> str:
     """Register for an API key. Free tier: 10 skill retrievals per day."""
     key, record = generate_key()
+    if key is None:
+        return "Error: Registration temporarily unavailable. Please try again later."
     return (
         f"Your API key: {key}\n\n"
         f"Free tier: 10 calls/day.\n"
@@ -292,19 +293,16 @@ async def stripe_webhook(request: Request):
     """Handle Stripe webhook for automatic credit provisioning."""
     body = await request.body()
 
-    if STRIPE_WEBHOOK_SECRET:
-        sig_header = request.headers.get("stripe-signature", "")
-        try:
-            event = stripe.Webhook.construct_event(
-                body, sig_header, STRIPE_WEBHOOK_SECRET
-            )
-        except (ValueError, stripe.SignatureVerificationError) as e:
-            return PlainTextResponse(str(e), status_code=400)
-    else:
-        try:
-            event = json.loads(body)
-        except json.JSONDecodeError:
-            return PlainTextResponse("Invalid JSON", status_code=400)
+    if not STRIPE_WEBHOOK_SECRET:
+        return PlainTextResponse("Webhook not configured", status_code=503)
+
+    sig_header = request.headers.get("stripe-signature", "")
+    try:
+        event = stripe.Webhook.construct_event(
+            body, sig_header, STRIPE_WEBHOOK_SECRET
+        )
+    except (ValueError, stripe.SignatureVerificationError) as e:
+        return PlainTextResponse(str(e), status_code=400)
 
     if event.get("type") == "checkout.session.completed":
         session = event["data"]["object"]
@@ -345,6 +343,11 @@ async def health(request: Request):
 
 # --- Build the combined ASGI app ---
 
+@asynccontextmanager
+async def lifespan(app):
+    async with mcp.session_manager.run():
+        yield
+
 app = Starlette(
     routes=[
         Route("/health", health, methods=["GET"]),
@@ -353,6 +356,7 @@ app = Starlette(
         Route("/checkout/cancel", checkout_cancel, methods=["GET"]),
         Mount("/mcp", app=mcp.streamable_http_app()),
     ],
+    lifespan=lifespan,
 )
 
 if __name__ == "__main__":

@@ -1,11 +1,13 @@
 """
-Simple API key + credit tracking system.
-Keys and balances stored in a JSON file. Good enough for first 50 customers.
+API key + credit tracking system.
+JSON-backed with file locking and corruption recovery.
 """
 
+import fcntl
 import json
 import os
 import secrets
+import shutil
 import time
 from pathlib import Path
 
@@ -14,36 +16,72 @@ KEYS_FILE = DATA_DIR / "keys.json"
 TOKENS_FILE = DATA_DIR / "tokens.json"
 
 FREE_DAILY_LIMIT = 10
+MAX_KEYS = 5000  # safety valve against key farming
 
 
-def _load_keys() -> dict:
-    if not KEYS_FILE.exists():
-        KEYS_FILE.parent.mkdir(parents=True, exist_ok=True)
-        KEYS_FILE.write_text("{}")
+def _ensure_dir():
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def _load_json(path: Path) -> dict:
+    """Load a JSON file with shared lock and corruption recovery."""
+    _ensure_dir()
+    if not path.exists():
+        path.write_text("{}")
         return {}
-    return json.loads(KEYS_FILE.read_text())
-
-
-def _save_keys(keys: dict):
-    KEYS_FILE.parent.mkdir(parents=True, exist_ok=True)
-    KEYS_FILE.write_text(json.dumps(keys, indent=2))
-
-
-def _load_tokens() -> dict:
-    if not TOKENS_FILE.exists():
-        TOKENS_FILE.parent.mkdir(parents=True, exist_ok=True)
-        TOKENS_FILE.write_text("{}")
+    try:
+        with open(path, "r") as f:
+            fcntl.flock(f, fcntl.LOCK_SH)
+            try:
+                return json.load(f)
+            finally:
+                fcntl.flock(f, fcntl.LOCK_UN)
+    except (json.JSONDecodeError, ValueError):
+        # Try backup
+        backup = path.with_suffix(".json.bak")
+        if backup.exists():
+            try:
+                data = json.loads(backup.read_text())
+                # Restore from backup
+                path.write_text(json.dumps(data, indent=2))
+                return data
+            except (json.JSONDecodeError, ValueError):
+                pass
+        # Last resort: preserve corrupted file, start fresh
+        corrupted = path.with_suffix(".json.corrupted")
+        shutil.copy2(path, corrupted)
+        path.write_text("{}")
         return {}
-    return json.loads(TOKENS_FILE.read_text())
 
 
-def _save_tokens(tokens: dict):
-    TOKENS_FILE.parent.mkdir(parents=True, exist_ok=True)
-    TOKENS_FILE.write_text(json.dumps(tokens, indent=2))
+def _save_json(path: Path, data: dict):
+    """Save a JSON file with exclusive lock and backup."""
+    _ensure_dir()
+    # Write backup first
+    if path.exists():
+        backup = path.with_suffix(".json.bak")
+        shutil.copy2(path, backup)
+    with open(path, "w") as f:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        try:
+            json.dump(data, f, indent=2)
+        finally:
+            fcntl.flock(f, fcntl.LOCK_UN)
 
 
-def generate_key() -> tuple[str, dict]:
+def _with_keys(fn):
+    """Load keys, apply mutation function, save. Atomic."""
+    keys = _load_json(KEYS_FILE)
+    result = fn(keys)
+    _save_json(KEYS_FILE, keys)
+    return result
+
+
+def generate_key() -> tuple[str | None, dict]:
     """Generate a new API key with free tier credits."""
+    keys = _load_json(KEYS_FILE)
+    if len(keys) >= MAX_KEYS:
+        return None, {}
     key = f"sk-{secrets.token_hex(16)}"
     record = {
         "created": int(time.time()),
@@ -53,21 +91,20 @@ def generate_key() -> tuple[str, dict]:
         "total_calls": 0,
         "tier": "free",
     }
-    keys = _load_keys()
     keys[key] = record
-    _save_keys(keys)
+    _save_json(KEYS_FILE, keys)
     return key, record
 
 
 def verify_key(key: str) -> dict | None:
     """Verify an API key and return the record, or None if invalid."""
-    keys = _load_keys()
+    keys = _load_json(KEYS_FILE)
     return keys.get(key)
 
 
 def can_call(key: str) -> tuple[bool, str]:
     """Check if a key has remaining calls. Returns (allowed, reason)."""
-    keys = _load_keys()
+    keys = _load_json(KEYS_FILE)
     record = keys.get(key)
     if record is None:
         return False, "Invalid API key."
@@ -77,7 +114,7 @@ def can_call(key: str) -> tuple[bool, str]:
         record["free_calls_today"] = 0
         record["free_calls_date"] = _today()
         keys[key] = record
-        _save_keys(keys)
+        _save_json(KEYS_FILE, keys)
 
     # Paid credits first
     if record.get("credits", 0) > 0:
@@ -93,7 +130,7 @@ def can_call(key: str) -> tuple[bool, str]:
 
 def record_call(key: str, tool_name: str) -> dict:
     """Record a tool call against a key. Deduct credit or increment free counter."""
-    keys = _load_keys()
+    keys = _load_json(KEYS_FILE)
     record = keys.get(key)
     if record is None:
         return {}
@@ -106,26 +143,26 @@ def record_call(key: str, tool_name: str) -> dict:
         record["free_calls_today"] = record.get("free_calls_today", 0) + 1
 
     keys[key] = record
-    _save_keys(keys)
+    _save_json(KEYS_FILE, keys)
     return record
 
 
 def add_credits(key: str, amount: int) -> dict | None:
-    """Add credits to a key (called after Stripe webhook or manual top-up)."""
-    keys = _load_keys()
+    """Add credits to a key (called after Stripe webhook)."""
+    keys = _load_json(KEYS_FILE)
     record = keys.get(key)
     if record is None:
         return None
     record["credits"] = record.get("credits", 0) + amount
     record["tier"] = "paid"
     keys[key] = record
-    _save_keys(keys)
+    _save_json(KEYS_FILE, keys)
     return record
 
 
 def get_usage(key: str) -> dict | None:
     """Get usage stats for a key."""
-    keys = _load_keys()
+    keys = _load_json(KEYS_FILE)
     record = keys.get(key)
     if record is None:
         return None
@@ -141,13 +178,11 @@ def get_usage(key: str) -> dict | None:
 # --- Checkout token management ---
 
 def create_checkout_token(api_key: str, credits: int) -> str:
-    """Create a short-lived token that maps to an API key for checkout.
-    The token is passed to Stripe as client_reference_id so the raw
-    API key never appears in URLs or Stripe metadata."""
+    """Create a short-lived token for Stripe checkout."""
     token = secrets.token_hex(16)
-    tokens = _load_tokens()
+    tokens = _load_json(TOKENS_FILE)
 
-    # Clean expired tokens while we're here
+    # Clean expired tokens
     now = int(time.time())
     tokens = {k: v for k, v in tokens.items() if v.get("expires", 0) > now}
 
@@ -155,27 +190,29 @@ def create_checkout_token(api_key: str, credits: int) -> str:
         "api_key": api_key,
         "credits": credits,
         "created": now,
-        "expires": now + 3600,  # 1 hour expiry
+        "expires": now + 3600,
     }
-    _save_tokens(tokens)
+    _save_json(TOKENS_FILE, tokens)
     return token
 
 
 def resolve_checkout_token(token: str) -> tuple[str, int] | None:
-    """Look up a checkout token. Returns (api_key, credits) or None.
-    Deletes the token after use (one-time redemption)."""
-    tokens = _load_tokens()
+    """Look up and consume a checkout token. One-time use."""
+    tokens = _load_json(TOKENS_FILE)
+
+    # Clean expired
+    now = int(time.time())
+    tokens = {k: v for k, v in tokens.items() if v.get("expires", 0) > now}
+
     record = tokens.get(token)
     if record is None:
+        _save_json(TOKENS_FILE, tokens)
         return None
-    if record.get("expires", 0) < int(time.time()):
-        del tokens[token]
-        _save_tokens(tokens)
-        return None
+
     api_key = record["api_key"]
     credits = record["credits"]
     del tokens[token]
-    _save_tokens(tokens)
+    _save_json(TOKENS_FILE, tokens)
     return api_key, credits
 
 

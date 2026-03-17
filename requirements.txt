@@ -1,2 +1,4 @@
 mcp[cli]>=1.26.0
 uvicorn>=0.34.0
+stripe>=8.0.0
+starlette>=0.40.0
