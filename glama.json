@@ -1,0 +1,43 @@
+{
+  "name": "agentic-platform",
+  "description": "Free agent diagnostic tools + expert skill files. Score your agent's governance (0-100), lint MCP tool definitions, estimate costs across models.",
+  "author": "andysalvo",
+  "homepage": "https://api.asalvocreative.com",
+  "repository": "https://github.com/andysalvo/agentic-platform",
+  "license": "MIT",
+  "tags": ["governance", "diagnostics", "skills", "linter", "cost-estimator", "agent-tools"],
+  "tools": [
+    {
+      "name": "agent_health_check",
+      "description": "Score your agent's configuration on governance and best practices (0-100). No API key needed."
+    },
+    {
+      "name": "mcp_manifest_lint",
+      "description": "The only MCP linter that exists. Check tool definitions for anti-patterns and missing fields. No API key needed."
+    },
+    {
+      "name": "estimate_agent_cost",
+      "description": "Estimate task costs across all major models with comparison table and optimization tips. No API key needed."
+    },
+    {
+      "name": "register",
+      "description": "Get a free API key for expert skill files (10 calls/day)."
+    },
+    {
+      "name": "list_skills",
+      "description": "List all available expert skill files with descriptions."
+    },
+    {
+      "name": "get_skill",
+      "description": "Retrieve an expert skill file. Curated context packages with auditable provenance."
+    },
+    {
+      "name": "buy_credits",
+      "description": "Get a Stripe checkout link to purchase more credits."
+    },
+    {
+      "name": "check_usage",
+      "description": "Check your current usage and remaining calls."
+    }
+  ]
+}
