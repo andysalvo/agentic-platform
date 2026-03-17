@@ -4,15 +4,16 @@ Keys and balances stored in a JSON file. Good enough for first 50 customers.
 """
 
 import json
+import os
 import secrets
 import time
 from pathlib import Path
 
 DATA_DIR = Path(__file__).parent / "data"
 KEYS_FILE = DATA_DIR / "keys.json"
+TOKENS_FILE = DATA_DIR / "tokens.json"
 
 FREE_DAILY_LIMIT = 10
-STRIPE_CHECKOUT_URL = ""  # Set this to your Stripe checkout link
 
 
 def _load_keys() -> dict:
@@ -26,6 +27,19 @@ def _load_keys() -> dict:
 def _save_keys(keys: dict):
     KEYS_FILE.parent.mkdir(parents=True, exist_ok=True)
     KEYS_FILE.write_text(json.dumps(keys, indent=2))
+
+
+def _load_tokens() -> dict:
+    if not TOKENS_FILE.exists():
+        TOKENS_FILE.parent.mkdir(parents=True, exist_ok=True)
+        TOKENS_FILE.write_text("{}")
+        return {}
+    return json.loads(TOKENS_FILE.read_text())
+
+
+def _save_tokens(tokens: dict):
+    TOKENS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    TOKENS_FILE.write_text(json.dumps(tokens, indent=2))
 
 
 def generate_key() -> tuple[str, dict]:
@@ -74,12 +88,7 @@ def can_call(key: str) -> tuple[bool, str]:
         return True, "free"
 
     # Out of calls
-    msg = f"Free tier exhausted ({FREE_DAILY_LIMIT}/day)."
-    if STRIPE_CHECKOUT_URL:
-        msg += f" Purchase credits: {STRIPE_CHECKOUT_URL}"
-    else:
-        msg += " Contact the operator to purchase credits."
-    return False, msg
+    return False, f"Free tier exhausted ({FREE_DAILY_LIMIT}/day). Use buy_credits() to purchase more."
 
 
 def record_call(key: str, tool_name: str) -> dict:
@@ -127,6 +136,47 @@ def get_usage(key: str) -> dict | None:
         "total_calls": record.get("total_calls", 0),
         "tier": record.get("tier", "free"),
     }
+
+
+# --- Checkout token management ---
+
+def create_checkout_token(api_key: str, credits: int) -> str:
+    """Create a short-lived token that maps to an API key for checkout.
+    The token is passed to Stripe as client_reference_id so the raw
+    API key never appears in URLs or Stripe metadata."""
+    token = secrets.token_hex(16)
+    tokens = _load_tokens()
+
+    # Clean expired tokens while we're here
+    now = int(time.time())
+    tokens = {k: v for k, v in tokens.items() if v.get("expires", 0) > now}
+
+    tokens[token] = {
+        "api_key": api_key,
+        "credits": credits,
+        "created": now,
+        "expires": now + 3600,  # 1 hour expiry
+    }
+    _save_tokens(tokens)
+    return token
+
+
+def resolve_checkout_token(token: str) -> tuple[str, int] | None:
+    """Look up a checkout token. Returns (api_key, credits) or None.
+    Deletes the token after use (one-time redemption)."""
+    tokens = _load_tokens()
+    record = tokens.get(token)
+    if record is None:
+        return None
+    if record.get("expires", 0) < int(time.time()):
+        del tokens[token]
+        _save_tokens(tokens)
+        return None
+    api_key = record["api_key"]
+    credits = record["credits"]
+    del tokens[token]
+    _save_tokens(tokens)
+    return api_key, credits
 
 
 def _today() -> str:
