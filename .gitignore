@@ -4,3 +4,5 @@ data/
 *.pyc
 .DS_Store
 server.log
+_patch_server.py
+evaluate_service.py

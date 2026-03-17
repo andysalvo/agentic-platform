@@ -1,0 +1,73 @@
+# Agentic Platform
+
+> MCP server providing free agent diagnostics and expert skill files. Connect at https://api.asalvocreative.com/mcp
+
+## Overview
+
+The Agentic Platform is a Model Context Protocol (MCP) server that provides tools for building, evaluating, and operating AI agents. It offers four free diagnostic tools and three paid expert skill files.
+
+## Connection
+
+MCP Endpoint: https://api.asalvocreative.com/mcp
+Smithery Gateway: agentic-platform--andysalvo.run.tools
+GitHub: https://github.com/andysalvo/agentic-platform
+
+### Claude Code
+```
+claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp
+```
+
+### Claude Desktop / Cursor
+Add to your MCP configuration:
+```json
+{
+  "mcpServers": {
+    "agentic-platform": {
+      "url": "https://api.asalvocreative.com/mcp"
+    }
+  }
+}
+```
+
+### Smithery
+```
+npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude
+```
+
+## Free Tools (no API key required)
+
+### mcp_manifest_lint
+The only MCP tool definition linter. Validates your MCP tool definitions for anti-patterns, missing descriptions, bad parameter schemas, naming issues, and quality problems. Pass your tool definitions as a JSON array.
+
+### agent_health_check
+Score any agent's system prompt on governance best practices from 0 to 100. Checks for authority leaks, silent inference, missing audit trails, and 14 other governance anti-patterns. Pass the full system prompt text.
+
+### estimate_agent_cost
+Compare the cost of running an agent task across all major AI models including Claude, GPT, Gemini, Llama, and Mistral. Returns a comparison table with per-call and per-day costs. Parameters: model name, input tokens, output tokens, number of calls.
+
+### evaluate_service
+Evaluate any MCP service for trustworthiness before using it. Checks reachability, governance declarations, tool definition quality, and audit endpoints. Returns a trust score from 0 to 100 with a recommendation. Pass the target MCP server URL.
+
+## Expert Skills (10 free calls/day, then $0.10/call)
+
+### governance
+Design agent systems that preserve human authority. Covers three core invariants, Coupled Authority Phenomenon, forbidden failure modes, and decision architecture patterns.
+
+### agentic-economics
+Pricing models, unit economics, and revenue architecture for AI agent platforms. Market projections, cost-to-serve benchmarks, and pricing anti-patterns.
+
+### intent-architecture
+Build deterministic, auditable systems with append-only decision logs, replay safety, and 14 forbidden failure modes. Implementation patterns and embodiment tests.
+
+## Pricing
+
+- Free tools: unlimited, no API key
+- Expert skills: 10 free calls per day after registering an API key
+- Paid credits: $5 for 50 calls, $20 for 250 calls
+- Payment via Stripe checkout
+
+## API
+
+- Well-known agent info: https://api.asalvocreative.com/.well-known/agent.json
+- Audit log: https://api.asalvocreative.com/audit
+- Health check: https://api.asalvocreative.com/health

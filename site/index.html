@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic Platform -- MCP Server for Agent Diagnostics and Expert Skills</title>
+  <meta name="description" content="Free MCP tools for AI agents: the only MCP linter, governance health checks, cost estimation across all models, and service trust evaluation. Connect at https://api.asalvocreative.com/mcp">
+  <meta name="keywords" content="MCP server, Model Context Protocol, AI agent tools, MCP linter, agent health check, agent cost estimator, MCP service evaluation">
+  <link rel="canonical" href="https://api.asalvocreative.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Agentic Platform -- MCP Server for Agent Diagnostics">
+  <meta property="og:description" content="Free MCP tools: the only MCP linter, governance scoring, cost comparison across all models, and service trust evaluation.">
+  <meta property="og:url" content="https://api.asalvocreative.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agentic Platform">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Agentic Platform",
+    "description": "MCP server providing free agent diagnostic tools and expert skill files. Includes the only MCP tool definition linter, agent governance health checks, cost estimation across all AI models, and MCP service trust evaluation.",
+    "url": "https://api.asalvocreative.com/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": [
+      {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free tools: MCP linter, health check, cost estimator, service evaluator. No API key required."
+      },
+      {
+        "@type": "Offer",
+        "price": "5.00",
+        "priceCurrency": "USD",
+        "description": "50 expert skill credits for governance, agentic economics, and intent architecture."
+      }
+    ],
+    "softwareRequirements": "MCP-compatible client (Claude Code, Claude Desktop, Cursor, or any MCP client)",
+    "author": {
+      "@type": "Organization",
+      "name": "AMI Labs",
+      "url": "https://github.com/andysalvo/agentic-platform"
+    },
+    "codeRepository": "https://github.com/andysalvo/agentic-platform"
+  }
+  </script>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/" class="current">home</a>
+      <a href="/tools/mcp-linter.html">linter</a>
+      <a href="/tools/agent-health-check.html">health check</a>
+      <a href="/tools/cost-estimator.html">cost estimator</a>
+      <a href="/tools/evaluate-service.html">evaluator</a>
+    </nav>
+
+    <h1>Agentic Platform</h1>
+    <p class="subtitle">MCP server for agent diagnostics and expert skills</p>
+
+    <div class="endpoint">
+      <span class="label">MCP Endpoint</span>
+      <span class="url">https://api.asalvocreative.com/mcp</span>
+    </div>
+
+    <p>Four free diagnostic tools and three expert skill files, served over the Model Context Protocol. No account needed for the free tools. Connect from any MCP client.</p>
+
+    <h2>Connect</h2>
+
+    <h3>Claude Code</h3>
+    <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+
+    <h3>Claude Desktop / Cursor</h3>
+    <p>Add to your MCP configuration file:</p>
+    <pre><code>{
+  "mcpServers": {
+    "agentic-platform": {
+      "url": "https://api.asalvocreative.com/mcp"
+    }
+  }
+}</code></pre>
+
+    <h3>Smithery</h3>
+    <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
+
+    <div class="endpoint">
+      <span class="label">Smithery Gateway</span>
+      <span class="url">agentic-platform--andysalvo.run.tools</span>
+    </div>
+
+    <hr>
+
+    <h2>Free Tools</h2>
+    <p>No API key required. Unlimited use.</p>
+
+    <div class="tool-card">
+      <h3>mcp_manifest_lint</h3>
+      <span class="tag free">free</span>
+      <p>The only MCP tool definition linter. Validates tool definitions for anti-patterns, missing descriptions, bad parameter schemas, naming issues, and quality problems. Pass your tool definitions as a JSON array.</p>
+      <a href="/tools/mcp-linter.html">Details</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>agent_health_check</h3>
+      <span class="tag free">free</span>
+      <p>Score any agent's system prompt on governance best practices from 0 to 100. Checks for authority leaks, silent inference, missing audit trails, and 14 other anti-patterns.</p>
+      <a href="/tools/agent-health-check.html">Details</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>estimate_agent_cost</h3>
+      <span class="tag free">free</span>
+      <p>Compare costs across all major AI models. Returns a comparison table with per-call, per-run, and per-day costs for Claude, GPT, Gemini, Llama, Mistral, and more.</p>
+      <a href="/tools/cost-estimator.html">Details</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>evaluate_service</h3>
+      <span class="tag free">free</span>
+      <p>Evaluate any MCP service for trustworthiness before spending money. Checks reachability, governance, tool quality, and audit endpoints. Returns a trust score from 0 to 100.</p>
+      <a href="/tools/evaluate-service.html">Details</a>
+    </div>
+
+    <hr>
+
+    <h2>Expert Skills</h2>
+    <p>Curated knowledge files retrieved through the MCP protocol. 10 free calls per day after registering an API key.</p>
+
+    <div class="tool-card">
+      <h3>governance</h3>
+      <span class="tag paid">10 free/day</span>
+      <p>Design agent systems that preserve human authority. Covers three core invariants, Coupled Authority Phenomenon, forbidden failure modes, and decision architecture patterns.</p>
+    </div>
+
+    <div class="tool-card">
+      <h3>agentic-economics</h3>
+      <span class="tag paid">10 free/day</span>
+      <p>Pricing models, unit economics, and revenue architecture for AI agent platforms. Market projections, cost-to-serve benchmarks, and pricing anti-patterns.</p>
+    </div>
+
+    <div class="tool-card">
+      <h3>intent-architecture</h3>
+      <span class="tag paid">10 free/day</span>
+      <p>Build deterministic, auditable systems with append-only decision logs, replay safety, and 14 forbidden failure modes. Implementation patterns and embodiment tests.</p>
+    </div>
+
+    <hr>
+
+    <h2>Pricing</h2>
+    <ul>
+      <li>Free tools: unlimited, no API key required</li>
+      <li>Expert skills: 10 free calls per day (register via the <code>register</code> tool)</li>
+      <li>50 credits: $5</li>
+      <li>250 credits: $20</li>
+      <li>Payment via Stripe checkout, initiated through the <code>buy_credits</code> tool</li>
+    </ul>
+
+    <hr>
+
+    <h2>API Endpoints</h2>
+    <ul>
+      <li><code>GET /.well-known/agent.json</code> -- Machine-readable service description</li>
+      <li><code>GET /audit</code> -- Public audit log of recent calls</li>
+      <li><code>GET /health</code> -- Server health check</li>
+      <li><code>GET /llms.txt</code> -- Machine-readable platform description</li>
+    </ul>
+
+    <footer>
+      <p>
+        <a href="https://github.com/andysalvo/agentic-platform">GitHub</a> &middot;
+        MCP endpoint: <code>https://api.asalvocreative.com/mcp</code>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

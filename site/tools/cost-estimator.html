@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Cost Estimator -- Compare AI Model Costs | Agentic Platform</title>
+  <meta name="description" content="Compare the cost of running AI agent tasks across all major models: Claude, GPT, Gemini, Llama, Mistral. Per-call and per-day cost tables with optimization tips. Free MCP tool.">
+  <meta name="keywords" content="AI agent cost calculator, LLM cost comparison, agent cost estimation, AI model pricing, Claude cost, GPT cost, compare AI model prices, agent economics">
+  <link rel="canonical" href="https://api.asalvocreative.com/tools/cost-estimator.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Agent Cost Estimator -- Compare AI Model Costs">
+  <meta property="og:description" content="Compare AI agent costs across Claude, GPT, Gemini, Llama, Mistral. Per-call and per-day cost tables. Free MCP tool.">
+  <meta property="og:url" content="https://api.asalvocreative.com/tools/cost-estimator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agentic Platform">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Agent Cost Estimator",
+    "description": "Compare the cost of running AI agent tasks across all major models including Claude, GPT, Gemini, Llama, and Mistral. Returns comparison tables with per-call, per-run, and per-day costs.",
+    "url": "https://api.asalvocreative.com/tools/cost-estimator.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Cost comparison across all major AI models",
+      "Per-call and per-day pricing",
+      "Claude, GPT, Gemini, Llama, Mistral coverage",
+      "Custom token count estimation",
+      "Optimization recommendations",
+      "Multi-call task costing"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "AMI Labs",
+      "url": "https://github.com/andysalvo/agentic-platform"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/">home</a>
+      <a href="/tools/mcp-linter.html">linter</a>
+      <a href="/tools/agent-health-check.html">health check</a>
+      <a href="/tools/cost-estimator.html" class="current">cost estimator</a>
+      <a href="/tools/evaluate-service.html">evaluator</a>
+    </nav>
+
+    <h1>Agent Cost Estimator</h1>
+    <p class="subtitle">Compare AI model costs for any agent task</p>
+
+    <div class="endpoint">
+      <span class="label">MCP Endpoint</span>
+      <span class="url">https://api.asalvocreative.com/mcp</span>
+    </div>
+
+    <p>The <code>estimate_agent_cost</code> tool compares the cost of running an agent task across all major AI models. It returns a comparison table with per-call, per-run, and per-day costs, plus optimization tips based on your task description. Free to use, no API key required.</p>
+
+    <h2>Models Covered</h2>
+    <ul>
+      <li>Anthropic: Claude Opus, Sonnet, Haiku</li>
+      <li>OpenAI: GPT-4o, GPT-4o mini, o1, o3</li>
+      <li>Google: Gemini 2.5 Pro, Gemini 2.5 Flash</li>
+      <li>Meta: Llama 4 Maverick, Llama 4 Scout</li>
+      <li>Mistral: Large, Small, Codestral</li>
+      <li>Additional models as they are released</li>
+    </ul>
+
+    <h2>Parameters</h2>
+    <ul>
+      <li><code>model</code> -- Model name to highlight in the comparison (optional)</li>
+      <li><code>input_tokens</code> -- Estimated input tokens per API call (default: 1000)</li>
+      <li><code>output_tokens</code> -- Estimated output tokens per API call (default: 500)</li>
+      <li><code>num_calls</code> -- Number of API calls per task run (default: 1)</li>
+      <li><code>task_description</code> -- What the agent does, for optimization tips (optional)</li>
+    </ul>
+
+    <h2>Usage</h2>
+
+    <h3>Example Input</h3>
+    <pre><code>estimate_agent_cost({
+  model: "claude-sonnet-4",
+  input_tokens: 2000,
+  output_tokens: 1000,
+  num_calls: 5,
+  task_description: "Code review agent that reads PRs and suggests fixes"
+})</code></pre>
+
+    <h3>Example Output</h3>
+    <pre><code>Agent Cost Estimate
+===================
+Task: Code review agent (5 calls/run, 2000 in + 1000 out per call)
+
+Model                  Per Call    Per Run    Per Day (10 runs)
+---------------------------------------------------------------
+claude-sonnet-4      > $0.0090    $0.0450    $0.4500
+claude-haiku-3.5       $0.0013    $0.0063    $0.0625
+gpt-4o                 $0.0075    $0.0375    $0.3750
+gpt-4o-mini            $0.0005    $0.0023    $0.0225
+gemini-2.5-flash       $0.0004    $0.0019    $0.0188
+...
+
+Optimization tips:
+  - Consider Haiku for routine reviews, Sonnet for complex ones
+  - Cache system prompt to reduce input token costs
+  - Batch small PRs to reduce per-call overhead</code></pre>
+
+    <h2>Connect</h2>
+
+    <div class="connect-box">
+      <h3>Claude Code</h3>
+      <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+
+      <h3>Claude Desktop / Cursor</h3>
+      <pre><code>{
+  "mcpServers": {
+    "agentic-platform": {
+      "url": "https://api.asalvocreative.com/mcp"
+    }
+  }
+}</code></pre>
+
+      <h3>Smithery</h3>
+      <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
+    </div>
+
+    <hr>
+
+    <h2>About the Agentic Platform</h2>
+    <p>The Agentic Platform is an MCP server that provides free agent diagnostics and expert skill files. In addition to the cost estimator, it offers an <a href="/tools/mcp-linter.html">MCP linter</a>, <a href="/tools/agent-health-check.html">agent health check</a>, and <a href="/tools/evaluate-service.html">service trust evaluator</a> -- all free, no API key required.</p>
+
+    <footer>
+      <p>
+        <a href="https://github.com/andysalvo/agentic-platform">GitHub</a> &middot;
+        MCP endpoint: <code>https://api.asalvocreative.com/mcp</code>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Health Check -- Governance Score for AI Agent System Prompts | Agentic Platform</title>
+  <meta name="description" content="Score any AI agent's system prompt on governance best practices from 0 to 100. Checks for authority leaks, silent inference, missing audit trails, and 14 other anti-patterns. Free MCP tool.">
+  <meta name="keywords" content="agent health check, agent governance score, score agent system prompt, AI agent audit, agent governance, system prompt analysis, agent safety check">
+  <link rel="canonical" href="https://api.asalvocreative.com/tools/agent-health-check.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Agent Health Check -- Governance Score for AI Agents">
+  <meta property="og:description" content="Score any agent's system prompt on governance best practices from 0 to 100. Checks for authority leaks, silent inference, and 14 other anti-patterns. Free.">
+  <meta property="og:url" content="https://api.asalvocreative.com/tools/agent-health-check.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agentic Platform">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Agent Health Check",
+    "description": "Score any AI agent's system prompt on governance best practices from 0 to 100. Checks for authority leaks, silent inference, missing audit trails, and 14 other governance anti-patterns.",
+    "url": "https://api.asalvocreative.com/tools/agent-health-check.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Governance scoring 0-100",
+      "Authority leak detection",
+      "Silent inference detection",
+      "Audit trail verification",
+      "14 governance anti-pattern checks",
+      "Actionable fix recommendations"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "AMI Labs",
+      "url": "https://github.com/andysalvo/agentic-platform"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/">home</a>
+      <a href="/tools/mcp-linter.html">linter</a>
+      <a href="/tools/agent-health-check.html" class="current">health check</a>
+      <a href="/tools/cost-estimator.html">cost estimator</a>
+      <a href="/tools/evaluate-service.html">evaluator</a>
+    </nav>
+
+    <h1>Agent Health Check</h1>
+    <p class="subtitle">Governance scoring for agent system prompts, 0 to 100</p>
+
+    <div class="endpoint">
+      <span class="label">MCP Endpoint</span>
+      <span class="url">https://api.asalvocreative.com/mcp</span>
+    </div>
+
+    <p>The <code>agent_health_check</code> tool scores any agent's system prompt on governance best practices. It returns a detailed diagnostic report with specific issues found, severity ratings, and actionable fixes. Free to use, no API key required.</p>
+
+    <h2>What It Checks</h2>
+    <ul>
+      <li>Authority leaks -- places where an agent claims or assumes authority it was not given</li>
+      <li>Silent inference -- decisions made without explicit reasoning or user awareness</li>
+      <li>Missing audit trails -- no mechanism for logging or reviewing agent decisions</li>
+      <li>Scope creep -- agent instructions that expand beyond stated purpose</li>
+      <li>Missing error handling -- no guidance for what to do when things go wrong</li>
+      <li>Vague delegation -- unclear boundaries on what the agent can and cannot do</li>
+      <li>14 additional governance anti-patterns</li>
+    </ul>
+
+    <h2>Usage</h2>
+    <p>Connect to the Agentic Platform MCP server and call <code>agent_health_check</code> with your agent's system prompt.</p>
+
+    <h3>Example Input</h3>
+    <pre><code>agent_health_check({
+  system_prompt: "You are a helpful assistant. Do whatever the user asks. Use any tools available to complete tasks efficiently."
+})</code></pre>
+
+    <h3>Example Output</h3>
+    <pre><code>Agent Health Check Report
+=========================
+Score: 28/100
+
+CRITICAL  No authority boundaries defined
+CRITICAL  "Do whatever" grants unlimited scope
+WARNING   No error handling guidance
+WARNING   No audit or logging mentioned
+WARNING   No human escalation path
+
+Recommendations:
+  1. Define explicit scope boundaries
+  2. Add authority transfer protocols
+  3. Include error handling instructions
+  4. Add decision logging requirements</code></pre>
+
+    <h2>Connect</h2>
+
+    <div class="connect-box">
+      <h3>Claude Code</h3>
+      <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+
+      <h3>Claude Desktop / Cursor</h3>
+      <pre><code>{
+  "mcpServers": {
+    "agentic-platform": {
+      "url": "https://api.asalvocreative.com/mcp"
+    }
+  }
+}</code></pre>
+
+      <h3>Smithery</h3>
+      <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
+    </div>
+
+    <hr>
+
+    <h2>About the Agentic Platform</h2>
+    <p>The Agentic Platform is an MCP server that provides free agent diagnostics and expert skill files. In addition to the health check, it offers an <a href="/tools/mcp-linter.html">MCP linter</a>, <a href="/tools/cost-estimator.html">cost estimator</a>, and <a href="/tools/evaluate-service.html">service trust evaluator</a> -- all free, no API key required.</p>
+
+    <footer>
+      <p>
+        <a href="https://github.com/andysalvo/agentic-platform">GitHub</a> &middot;
+        MCP endpoint: <code>https://api.asalvocreative.com/mcp</code>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

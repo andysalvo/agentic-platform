@@ -139,11 +139,19 @@ def record_call(key: str, tool_name: str) -> dict:
 
     if record.get("credits", 0) > 0:
         record["credits"] -= 1
+        is_free = False
+        cost = 0.10
     else:
         record["free_calls_today"] = record.get("free_calls_today", 0) + 1
+        is_free = True
+        cost = 0.00
 
     keys[key] = record
     _save_json(KEYS_FILE, keys)
+
+    # Append to call log
+    append_call_log(key, tool_name, cost=cost, free_tier=is_free, response_ms=0)
+
     return record
 
 
@@ -218,3 +226,86 @@ def resolve_checkout_token(token: str) -> tuple[str, int] | None:
 
 def _today() -> str:
     return time.strftime("%Y-%m-%d")
+
+
+# --- Call logging ---
+
+import datetime
+
+CALLS_FILE = DATA_DIR / "calls.json"
+
+
+def _load_calls() -> list:
+    """Load the call log (a JSON array)."""
+    _ensure_dir()
+    if not CALLS_FILE.exists():
+        CALLS_FILE.write_text("[]")
+        return []
+    try:
+        with open(CALLS_FILE, "r") as f:
+            fcntl.flock(f, fcntl.LOCK_SH)
+            try:
+                data = json.load(f)
+                if not isinstance(data, list):
+                    return []
+                return data
+            finally:
+                fcntl.flock(f, fcntl.LOCK_UN)
+    except (json.JSONDecodeError, ValueError):
+        CALLS_FILE.write_text("[]")
+        return []
+
+
+def _save_calls(data: list):
+    """Save the call log with exclusive lock."""
+    _ensure_dir()
+    with open(CALLS_FILE, "w") as f:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        try:
+            json.dump(data, f, indent=2)
+        finally:
+            fcntl.flock(f, fcntl.LOCK_UN)
+
+
+def append_call_log(key: str, tool_name: str, cost: float, free_tier: bool, response_ms: int):
+    """Append a call entry to calls.json, keeping last 1000 entries."""
+    entry = {
+        "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+        "key_prefix": key[:12] + "...",
+        "tool": tool_name,
+        "cost": cost,
+        "free_tier": free_tier,
+        "response_ms": response_ms,
+    }
+    calls = _load_calls()
+    calls.append(entry)
+    if len(calls) > 1000:
+        calls = calls[-1000:]
+    _save_calls(calls)
+
+
+def get_audit_log(hours: int = 24) -> dict:
+    """Return recent call log entries with summary stats."""
+    calls = _load_calls()
+    cutoff = datetime.datetime.utcnow() - datetime.timedelta(hours=hours)
+    cutoff_str = cutoff.isoformat() + "Z"
+
+    recent = [c for c in calls if c.get("timestamp", "") >= cutoff_str]
+
+    total_cost = sum(c.get("cost", 0) for c in recent)
+    free_count = sum(1 for c in recent if c.get("free_tier", False))
+    paid_count = len(recent) - free_count
+    tools_used = {}
+    for c in recent:
+        t = c.get("tool", "unknown")
+        tools_used[t] = tools_used.get(t, 0) + 1
+
+    return {
+        "period_hours": hours,
+        "total_calls": len(recent),
+        "free_calls": free_count,
+        "paid_calls": paid_count,
+        "total_cost": round(total_cost, 2),
+        "tools_used": tools_used,
+        "entries": recent[-100:],
+    }

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCP Linter -- Validate MCP Tool Definitions | Agentic Platform</title>
+  <meta name="description" content="The only MCP tool definition linter. Validates your MCP tool definitions for anti-patterns, missing descriptions, bad parameter schemas, naming issues, and quality problems. Free, no API key required.">
+  <meta name="keywords" content="MCP linter, MCP tool validator, validate MCP tool definitions, Model Context Protocol linter, MCP tool quality, MCP manifest lint">
+  <link rel="canonical" href="https://api.asalvocreative.com/tools/mcp-linter.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MCP Linter -- Validate MCP Tool Definitions">
+  <meta property="og:description" content="The only MCP tool definition linter. Validates tool definitions for anti-patterns, missing descriptions, bad schemas, and quality problems. Free.">
+  <meta property="og:url" content="https://api.asalvocreative.com/tools/mcp-linter.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agentic Platform">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "MCP Manifest Linter",
+    "description": "The only MCP tool definition linter. Validates MCP tool definitions for anti-patterns, missing descriptions, bad parameter schemas, naming issues, and quality problems.",
+    "url": "https://api.asalvocreative.com/tools/mcp-linter.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Validates MCP tool definitions",
+      "Checks for anti-patterns",
+      "Verifies parameter schemas",
+      "Flags missing descriptions",
+      "Catches naming issues",
+      "Returns pass/fail with specific fixes"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "AMI Labs",
+      "url": "https://github.com/andysalvo/agentic-platform"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/">home</a>
+      <a href="/tools/mcp-linter.html" class="current">linter</a>
+      <a href="/tools/agent-health-check.html">health check</a>
+      <a href="/tools/cost-estimator.html">cost estimator</a>
+      <a href="/tools/evaluate-service.html">evaluator</a>
+    </nav>
+
+    <h1>MCP Manifest Linter</h1>
+    <p class="subtitle">The only MCP tool definition linter</p>
+
+    <div class="endpoint">
+      <span class="label">MCP Endpoint</span>
+      <span class="url">https://api.asalvocreative.com/mcp</span>
+    </div>
+
+    <p>The <code>mcp_manifest_lint</code> tool validates your MCP tool definitions against quality standards. It is the only linter purpose-built for MCP tool definitions. Free to use, no API key required.</p>
+
+    <h2>What It Checks</h2>
+    <ul>
+      <li>Missing or inadequate tool descriptions</li>
+      <li>Bad parameter schemas (missing types, descriptions, constraints)</li>
+      <li>Naming anti-patterns (inconsistent casing, ambiguous names)</li>
+      <li>Missing annotations (readOnlyHint, destructiveHint, etc.)</li>
+      <li>Overly broad or vague parameter definitions</li>
+      <li>Tool definitions that would confuse an agent during tool selection</li>
+    </ul>
+
+    <h2>Usage</h2>
+    <p>Connect to the Agentic Platform MCP server and call <code>mcp_manifest_lint</code> with your tool definitions as a JSON array.</p>
+
+    <h3>Example Input</h3>
+    <pre><code>mcp_manifest_lint({
+  tools_json: '[{"name": "do_stuff", "description": "", "inputSchema": {"type": "object"}}]'
+})</code></pre>
+
+    <h3>Example Output</h3>
+    <pre><code>MCP Manifest Lint Report
+========================
+
+Tool: do_stuff
+  FAIL  Missing description
+  FAIL  Vague tool name -- agents cannot infer purpose
+  WARN  No inputSchema properties defined
+  WARN  Missing annotations (readOnlyHint, destructiveHint)
+
+1 tool checked. 2 errors, 2 warnings.</code></pre>
+
+    <h2>Connect</h2>
+
+    <div class="connect-box">
+      <h3>Claude Code</h3>
+      <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+
+      <h3>Claude Desktop / Cursor</h3>
+      <pre><code>{
+  "mcpServers": {
+    "agentic-platform": {
+      "url": "https://api.asalvocreative.com/mcp"
+    }
+  }
+}</code></pre>
+
+      <h3>Smithery</h3>
+      <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
+    </div>
+
+    <hr>
+
+    <h2>About the Agentic Platform</h2>
+    <p>The Agentic Platform is an MCP server that provides free agent diagnostics and expert skill files. In addition to the MCP linter, it offers an <a href="/tools/agent-health-check.html">agent health check</a>, <a href="/tools/cost-estimator.html">cost estimator</a>, and <a href="/tools/evaluate-service.html">service trust evaluator</a> -- all free, no API key required.</p>
+
+    <footer>
+      <p>
+        <a href="https://github.com/andysalvo/agentic-platform">GitHub</a> &middot;
+        MCP endpoint: <code>https://api.asalvocreative.com/mcp</code>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

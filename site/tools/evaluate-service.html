@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCP Service Trust Evaluator -- Is This MCP Server Safe? | Agentic Platform</title>
+  <meta name="description" content="Evaluate any MCP server for trustworthiness before spending money. Checks reachability, governance, tool quality, and audit endpoints. Returns a trust score 0-100. Free MCP tool.">
+  <meta name="keywords" content="MCP server trust evaluation, is this MCP server safe, evaluate MCP service, MCP server security, MCP trust score, MCP server review, MCP due diligence">
+  <link rel="canonical" href="https://api.asalvocreative.com/tools/evaluate-service.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MCP Service Trust Evaluator -- Is This MCP Server Safe?">
+  <meta property="og:description" content="Evaluate any MCP server for trustworthiness before using it. Trust score 0-100 with recommendations. Free MCP tool.">
+  <meta property="og:url" content="https://api.asalvocreative.com/tools/evaluate-service.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agentic Platform">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "MCP Service Trust Evaluator",
+    "description": "Evaluate any MCP service for trustworthiness before spending money on it. Checks reachability, governance declarations, tool definition quality, and audit endpoints. Returns a trust score from 0 to 100.",
+    "url": "https://api.asalvocreative.com/tools/evaluate-service.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Trust scoring 0-100",
+      "Reachability verification",
+      "Governance declaration checks",
+      "Tool definition quality analysis",
+      "Audit endpoint verification",
+      "PROCEED / CAUTION / HIGH RISK / DO NOT TRANSACT recommendations"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "AMI Labs",
+      "url": "https://github.com/andysalvo/agentic-platform"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/">home</a>
+      <a href="/tools/mcp-linter.html">linter</a>
+      <a href="/tools/agent-health-check.html">health check</a>
+      <a href="/tools/cost-estimator.html">cost estimator</a>
+      <a href="/tools/evaluate-service.html" class="current">evaluator</a>
+    </nav>
+
+    <h1>Service Trust Evaluator</h1>
+    <p class="subtitle">Evaluate any MCP server before spending money on it</p>
+
+    <div class="endpoint">
+      <span class="label">MCP Endpoint</span>
+      <span class="url">https://api.asalvocreative.com/mcp</span>
+    </div>
+
+    <p>The <code>evaluate_service</code> tool connects to any MCP server and evaluates it for trustworthiness. It checks reachability, governance declarations, tool definition quality, and audit endpoints. Returns a trust score from 0 to 100 with a clear recommendation. Free to use, no API key required.</p>
+
+    <h2>What It Checks</h2>
+    <ul>
+      <li>Server reachability -- can the MCP endpoint be reached and does it respond correctly</li>
+      <li>Governance declarations -- does the server publish governance invariants</li>
+      <li>Tool definition quality -- are tool descriptions, schemas, and annotations well-formed</li>
+      <li>Audit endpoints -- does the server expose an audit log or transparency endpoint</li>
+      <li>Agent.json -- does the server publish a <code>/.well-known/agent.json</code> file</li>
+      <li>HTTPS -- is the connection encrypted</li>
+    </ul>
+
+    <h2>Trust Recommendations</h2>
+    <ul>
+      <li><strong>PROCEED</strong> (75-100) -- Server meets governance standards</li>
+      <li><strong>PROCEED WITH CAUTION</strong> (50-74) -- Some governance gaps, review before transacting</li>
+      <li><strong>HIGH RISK</strong> (25-49) -- Significant governance concerns</li>
+      <li><strong>DO NOT TRANSACT</strong> (0-24) -- Server does not meet minimum standards</li>
+    </ul>
+
+    <h2>Usage</h2>
+
+    <h3>Example Input</h3>
+    <pre><code>evaluate_service({
+  server_url: "https://example.com/mcp",
+  task_context: "I need to use this server for code generation"
+})</code></pre>
+
+    <h3>Example Output</h3>
+    <pre><code>Service Trust Evaluation
+========================
+Target: https://example.com/mcp
+Trust Score: 62/100
+Recommendation: PROCEED WITH CAUTION
+
+Checks:
+  PASS  Server reachable (238ms response time)
+  PASS  Valid MCP endpoint (12 tools found)
+  PASS  HTTPS enabled
+  FAIL  No /.well-known/agent.json found
+  FAIL  No audit endpoint
+  WARN  3 tools missing descriptions
+  WARN  No governance declarations
+
+Summary: Server is functional but lacks transparency.
+         Review tool definitions before authorizing payments.</code></pre>
+
+    <h2>Connect</h2>
+
+    <div class="connect-box">
+      <h3>Claude Code</h3>
+      <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+
+      <h3>Claude Desktop / Cursor</h3>
+      <pre><code>{
+  "mcpServers": {
+    "agentic-platform": {
+      "url": "https://api.asalvocreative.com/mcp"
+    }
+  }
+}</code></pre>
+
+      <h3>Smithery</h3>
+      <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
+    </div>
+
+    <hr>
+
+    <h2>About the Agentic Platform</h2>
+    <p>The Agentic Platform is an MCP server that provides free agent diagnostics and expert skill files. In addition to the service evaluator, it offers an <a href="/tools/mcp-linter.html">MCP linter</a>, <a href="/tools/agent-health-check.html">agent health check</a>, and <a href="/tools/cost-estimator.html">cost estimator</a> -- all free, no API key required.</p>
+
+    <footer>
+      <p>
+        <a href="https://github.com/andysalvo/agentic-platform">GitHub</a> &middot;
+        MCP endpoint: <code>https://api.asalvocreative.com/mcp</code>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
