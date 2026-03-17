@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+data/keys.json
+*.pyc
+.DS_Store
+server.log
