@@ -361,7 +361,7 @@ app = Starlette(
 
 if __name__ == "__main__":
     import sys
-    if "--stdio" in sys.argv:
+    if "--stdio" in sys.argv or os.environ.get("MCP_TRANSPORT") == "stdio":
         mcp.run(transport="stdio")
     else:
         import uvicorn
