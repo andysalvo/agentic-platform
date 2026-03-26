@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Model Pricing Comparison 2026 -- GPT-4 vs Claude vs Gemini | Agentic Platform</title>
+  <meta name="description" content="Compare AI model pricing across GPT-4, Claude, Gemini, and open-source LLMs. Use estimate_agent_cost to calculate real production costs for your AI agent workflows. Free, no API key.">
+  <meta name="keywords" content="AI model pricing 2026, GPT-4 vs Claude cost, cheapest LLM for production, AI API pricing comparison, LLM cost calculator, agent cost estimator">
+  <link rel="canonical" href="https://api.asalvocreative.com/tools/ai-model-pricing.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AI Model Pricing Comparison 2026 -- GPT-4 vs Claude vs Gemini">
+  <meta property="og:description" content="Compare AI model pricing and calculate real production costs for agent workflows. Free cost estimator, no API key required.">
+  <meta property="og:url" content="https://api.asalvocreative.com/tools/ai-model-pricing.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agentic Platform">
+
+  <!-- JSON-LD SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AI Agent Cost Estimator",
+    "description": "Compare AI model pricing and calculate real production costs for agent workflows. Covers GPT-4, Claude, Gemini, and open-source models.",
+    "url": "https://api.asalvocreative.com/tools/ai-model-pricing.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Estimates per-run agent costs",
+      "Covers major model families",
+      "Factors in tool calls and context length",
+      "Compares agentic vs single-call pricing",
+      "Returns cost breakdowns by component"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "AMI Labs",
+      "url": "https://github.com/andysalvo/agentic-platform"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the cheapest LLM for production in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For simple tasks, GPT-4o mini and Claude Haiku offer the lowest per-token costs at roughly $0.25-0.80 per million input tokens. For agentic workloads with tool calls, the cheapest option depends on how many turns your agent takes. Use the estimate_agent_cost tool to model your specific workflow."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does it cost to run an AI agent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A typical agent run with 5-10 tool calls costs $0.01-0.15 depending on the model. Complex multi-step workflows with large context windows can cost $0.50-2.00 per run. The estimate_agent_cost tool calculates this based on your specific model, context size, and tool call count."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does GPT-4 pricing compare to Claude pricing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GPT-4o and Claude Sonnet are priced similarly for input tokens ($2.50-3.00 per million). Output tokens differ more. For agentic workloads, total cost depends on context window usage and number of turns. Use estimate_agent_cost to compare them on your actual workload."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the AI cost estimator free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The estimate_agent_cost tool is completely free with no API key required. Connect to the MCP endpoint at https://api.asalvocreative.com/mcp and start estimating."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/">home</a>
+      <a href="/tools/mcp-linter.html">linter</a>
+      <a href="/tools/agent-health-check.html">health check</a>
+      <a href="/tools/cost-estimator.html">cost estimator</a>
+      <a href="/tools/evaluate-service.html">evaluator</a>
+    </nav>
+
+    <h1>AI Model Pricing Comparison 2026</h1>
+    <p class="subtitle">Compare LLM costs for production agent workloads</p>
+
+    <p>Compare AI model pricing across GPT-4, Claude, Gemini, and open-source LLMs using <code>estimate_agent_cost</code>, a free tool that calculates real production costs for your agent workflows. No API key required.</p>
+
+    <div class="endpoint">
+      <span class="label">MCP Endpoint</span>
+      <span class="url">https://api.asalvocreative.com/mcp</span>
+    </div>
+
+    <h2>Model Pricing Tiers</h2>
+
+    <h3>Frontier Models (highest capability)</h3>
+    <pre><code>Claude Opus      $15.00 / $75.00 per 1M tokens (in/out)
+GPT-4.5          $75.00 / $150.00 per 1M tokens (in/out)
+Gemini Ultra      Variable pricing</code></pre>
+    <p>Best for complex reasoning, multi-step planning, and high-stakes decisions. Expensive for high-volume agentic loops.</p>
+
+    <h3>Mid-Tier Models (best value for agents)</h3>
+    <pre><code>Claude Sonnet    $3.00 / $15.00 per 1M tokens (in/out)
+GPT-4o           $2.50 / $10.00 per 1M tokens (in/out)
+Gemini Pro       $1.25 / $5.00 per 1M tokens (in/out)</code></pre>
+    <p>The sweet spot for most agent workloads. Strong tool use, good reasoning, manageable cost at scale.</p>
+
+    <h3>Fast/Cheap Models (high volume)</h3>
+    <pre><code>Claude Haiku     $0.25 / $1.25 per 1M tokens (in/out)
+GPT-4o mini      $0.15 / $0.60 per 1M tokens (in/out)
+Gemini Flash     $0.075 / $0.30 per 1M tokens (in/out)</code></pre>
+    <p>Best for simple routing, classification, and high-frequency tasks where cost matters more than depth.</p>
+
+    <h2>Why Per-Token Pricing Is Misleading</h2>
+    <p>Agentic workloads are not single API calls. An agent making 8 tool calls sends the full conversation history each turn. Your actual cost is driven by context accumulation, not the sticker price per token.</p>
+
+    <p>A "cheap" model that takes 15 turns to complete a task can cost more than a "premium" model that finishes in 3. The <code>estimate_agent_cost</code> tool accounts for this by modeling the full agent loop.</p>
+
+    <h2>Estimate Your Actual Cost</h2>
+    <p>Call <code>estimate_agent_cost</code> with your model, context size, and expected tool calls:</p>
+    <pre><code>estimate_agent_cost({
+  model: "claude-sonnet",
+  avg_input_tokens: 4000,
+  avg_output_tokens: 800,
+  tool_calls_per_run: 6,
+  runs_per_day: 100
+})</code></pre>
+
+    <p>It returns a cost breakdown per run, per day, and per month -- with a comparison across model tiers so you can see exactly where the tradeoffs are.</p>
+
+    <h2>Connect</h2>
+
+    <div class="connect-box">
+      <h3>Claude Code</h3>
+      <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+
+      <h3>Claude Desktop / Cursor</h3>
+      <pre><code>{
+  "mcpServers": {
+    "agentic-platform": {
+      "url": "https://api.asalvocreative.com/mcp"
+    }
+  }
+}</code></pre>
+
+      <h3>Smithery</h3>
+      <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
+    </div>
+
+    <hr>
+
+    <h2>About the Agentic Platform</h2>
+    <p>The Agentic Platform is an MCP server that provides free agent diagnostics and expert skill files. In addition to the cost estimator, it offers an <a href="/tools/mcp-linter.html">MCP linter</a>, <a href="/tools/agent-health-check.html">agent health check</a>, and <a href="/tools/evaluate-service.html">service trust evaluator</a> -- all free, no API key required.</p>
+
+    <footer>
+      <p>
+        <a href="https://github.com/andysalvo/agentic-platform">GitHub</a> &middot;
+        MCP endpoint: <code>https://api.asalvocreative.com/mcp</code>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

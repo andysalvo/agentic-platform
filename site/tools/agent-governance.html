@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Governance Framework -- Safety Checklist and Scoring | Agentic Platform</title>
+  <meta name="description" content="Score your AI agent's governance posture with a free safety checklist. The agent_health_check tool evaluates authentication, rate limiting, error handling, logging, human-in-the-loop controls, and more.">
+  <meta name="keywords" content="AI agent governance, agent safety checklist, how to make AI agents safe, agent governance framework, AI agent security, agent health check">
+  <link rel="canonical" href="https://api.asalvocreative.com/tools/agent-governance.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AI Agent Governance Framework -- Safety Checklist and Scoring">
+  <meta property="og:description" content="Score your AI agent's governance posture with a free safety checklist. Covers auth, rate limiting, error handling, logging, and human-in-the-loop controls.">
+  <meta property="og:url" content="https://api.asalvocreative.com/tools/agent-governance.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agentic Platform">
+
+  <!-- JSON-LD SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AI Agent Governance Checker",
+    "description": "Score your AI agent's governance posture with a free safety checklist. Evaluates authentication, rate limiting, error handling, logging, human-in-the-loop controls, and more.",
+    "url": "https://api.asalvocreative.com/tools/agent-governance.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Governance posture scoring",
+      "Safety checklist evaluation",
+      "Authentication and authorization checks",
+      "Rate limiting verification",
+      "Error handling assessment",
+      "Human-in-the-loop control review"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "AMI Labs",
+      "url": "https://github.com/andysalvo/agentic-platform"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is an AI agent governance framework?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An AI agent governance framework is a structured checklist of safety and operational controls that an autonomous agent should have in place. It covers authentication, rate limiting, error handling, logging, human-in-the-loop checkpoints, scope constraints, and fallback behavior."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I check if my AI agent is safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the agent_health_check tool on the Agentic Platform MCP server. Describe your agent's architecture and controls, and it returns a governance score with specific findings for each checklist category. Connect to https://api.asalvocreative.com/mcp to use it for free."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What should an AI agent safety checklist include?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A thorough safety checklist covers: authentication and authorization for all external calls, rate limiting to prevent runaway costs, structured error handling with graceful degradation, comprehensive logging for audit trails, human-in-the-loop gates for destructive or high-stakes actions, scope constraints to prevent agents from exceeding their mandate, and fallback behavior when tools or APIs are unavailable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the agent governance checker free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The agent_health_check tool is completely free with no API key required. Connect to the MCP endpoint and describe your agent to receive a governance score and specific recommendations."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/">home</a>
+      <a href="/tools/mcp-linter.html">linter</a>
+      <a href="/tools/agent-health-check.html">health check</a>
+      <a href="/tools/cost-estimator.html">cost estimator</a>
+      <a href="/tools/evaluate-service.html">evaluator</a>
+    </nav>
+
+    <h1>AI Agent Governance Framework</h1>
+    <p class="subtitle">Safety checklist and governance scoring for autonomous agents</p>
+
+    <p>Score your AI agent's governance posture using <code>agent_health_check</code>, a free tool that evaluates your agent against a structured safety checklist. It covers authentication, rate limiting, error handling, logging, human-in-the-loop controls, and scope constraints. No API key required.</p>
+
+    <div class="endpoint">
+      <span class="label">MCP Endpoint</span>
+      <span class="url">https://api.asalvocreative.com/mcp</span>
+    </div>
+
+    <h2>The Governance Checklist</h2>
+
+    <h3>Authentication and Authorization</h3>
+    <p>Every external API call and tool invocation should be authenticated. Agents should operate with least-privilege credentials scoped to their specific task.</p>
+
+    <h3>Rate Limiting</h3>
+    <p>Uncapped agents can burn through API budgets in minutes. Rate limits should exist at both the agent loop level (max iterations) and the API call level (requests per minute).</p>
+
+    <h3>Error Handling</h3>
+    <p>Agents need structured error handling with graceful degradation. A failed tool call should not crash the loop or trigger infinite retries.</p>
+
+    <h3>Logging and Audit Trail</h3>
+    <p>Every decision, tool call, and outcome should be logged. Without an audit trail, you cannot debug agent behavior or prove compliance.</p>
+
+    <h3>Human-in-the-Loop Gates</h3>
+    <p>Destructive actions (deleting data, sending money, publishing content) should require human approval. The agent should pause and surface the decision, not proceed autonomously.</p>
+
+    <h3>Scope Constraints</h3>
+    <p>Agents should have explicit boundaries on what they can access and modify. An agent scoped to "read and summarize" should not have write permissions.</p>
+
+    <h3>Fallback Behavior</h3>
+    <p>When a tool or API is unavailable, the agent should have a defined fallback. Silently dropping failures leads to incorrect results.</p>
+
+    <h3>Cost Controls</h3>
+    <p>Set per-run and daily spending caps. An agent that enters a reasoning loop with a frontier model can generate hundreds of dollars in API costs within an hour.</p>
+
+    <h2>How Governance Scoring Works</h2>
+    <p>The <code>agent_health_check</code> tool evaluates your agent across each checklist category. Describe your agent's architecture, and it returns a score with specific findings.</p>
+
+    <pre><code>agent_health_check({
+  agent_description: "A customer support agent that reads tickets from Zendesk, drafts responses using Claude Sonnet, and posts replies. It runs every 5 minutes via cron. Auth via API keys stored in environment variables. No rate limiting configured. Logs to stdout.",
+  check_type: "governance"
+})</code></pre>
+
+    <p>The report highlights what you have in place, what is missing, and what to fix first. It prioritizes by risk -- missing auth and missing cost controls rank higher than missing logging.</p>
+
+    <h2>Connect</h2>
+
+    <div class="connect-box">
+      <h3>Claude Code</h3>
+      <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+
+      <h3>Claude Desktop / Cursor</h3>
+      <pre><code>{
+  "mcpServers": {
+    "agentic-platform": {
+      "url": "https://api.asalvocreative.com/mcp"
+    }
+  }
+}</code></pre>
+
+      <h3>Smithery</h3>
+      <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
+    </div>
+
+    <hr>
+
+    <h2>About the Agentic Platform</h2>
+    <p>The Agentic Platform is an MCP server that provides free agent diagnostics and expert skill files. In addition to the governance checker, it offers an <a href="/tools/mcp-linter.html">MCP linter</a>, <a href="/tools/cost-estimator.html">cost estimator</a>, and <a href="/tools/evaluate-service.html">service trust evaluator</a> -- all free, no API key required.</p>
+
+    <footer>
+      <p>
+        <a href="https://github.com/andysalvo/agentic-platform">GitHub</a> &middot;
+        MCP endpoint: <code>https://api.asalvocreative.com/mcp</code>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

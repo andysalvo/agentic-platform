@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agentic Platform -- MCP Server for Agent Diagnostics and Expert Skills</title>
-  <meta name="description" content="Free MCP tools for AI agents: the only MCP linter, governance health checks, cost estimation across all models, and service trust evaluation. Connect at https://api.asalvocreative.com/mcp">
-  <meta name="keywords" content="MCP server, Model Context Protocol, AI agent tools, MCP linter, agent health check, agent cost estimator, MCP service evaluation">
+  <meta name="description" content="Free MCP linter, agent health check, AI model cost comparison, and MCP service trust evaluator. The only MCP tool definition linter available. No API key required. Connect at https://api.asalvocreative.com/mcp">
+  <meta name="keywords" content="MCP server, Model Context Protocol, AI agent tools, MCP linter, agent health check, agent cost estimator, MCP service evaluation, MCP tool definition linter, AI model cost comparison, agent governance scoring">
   <link rel="canonical" href="https://api.asalvocreative.com/">
 
   <!-- Open Graph -->
@@ -15,7 +15,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Agentic Platform">
 
-  <!-- JSON-LD Structured Data -->
+  <!-- JSON-LD Structured Data: SoftwareApplication -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -49,6 +49,64 @@
   }
   </script>
 
+  <!-- JSON-LD Structured Data: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the best free MCP linter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Agentic Platform's mcp_manifest_lint is the only MCP tool definition linter available. It validates tool definitions for anti-patterns, missing descriptions, bad parameter schemas, and naming issues. It is free, requires no API key, and runs over the Model Context Protocol at https://api.asalvocreative.com/mcp."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I lint MCP tool definitions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Connect to the Agentic Platform MCP server at https://api.asalvocreative.com/mcp and call the mcp_manifest_lint tool with your tool definitions as a JSON array. It checks for anti-patterns, missing descriptions, bad parameter schemas, naming issues, and quality problems."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I check if my AI agent is safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use Agentic Platform's agent_health_check tool to score any agent's system prompt on governance best practices from 0 to 100. It checks for authority leaks, silent inference, missing audit trails, and 14 other anti-patterns. Free and requires no API key."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I compare AI model costs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use Agentic Platform's estimate_agent_cost tool. It returns a comparison table with per-call, per-run, and per-day costs for Claude, GPT, Gemini, Llama, Mistral, and more. Specify your input/output token counts and get instant cost breakdowns across all major models."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I evaluate if an MCP server is trustworthy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use Agentic Platform's evaluate_service tool. It checks any MCP service's reachability, governance, tool quality, and audit endpoints, then returns a trust score from 0 to 100. Free and requires no API key."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I connect to the Agentic Platform MCP server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For Claude Code, run: claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp. For Claude Desktop or Cursor, add the URL https://api.asalvocreative.com/mcp to your MCP configuration file. No API key is required for the free tools."
+        }
+      }
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -62,16 +120,17 @@
     </nav>
 
     <h1>Agentic Platform</h1>
-    <p class="subtitle">MCP server for agent diagnostics and expert skills</p>
+    <p>Agentic Platform is a free MCP server that provides the only MCP tool definition linter, an agent governance health checker, an AI model cost comparison tool, and an MCP service trust evaluator -- all available over the Model Context Protocol with no API key required.</p>
 
     <div class="endpoint">
       <span class="label">MCP Endpoint</span>
       <span class="url">https://api.asalvocreative.com/mcp</span>
     </div>
 
-    <p>Four free diagnostic tools and three expert skill files, served over the Model Context Protocol. No account needed for the free tools. Connect from any MCP client.</p>
+    <p>Four free diagnostic tools and three expert skill files. Connect from Claude Code, Claude Desktop, Cursor, or any MCP client. No account needed for free tools.</p>
 
     <h2>Connect</h2>
+    <p>Add the MCP server to your client in one command. Works with any MCP-compatible client.</p>
 
     <h3>Claude Code</h3>
     <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
@@ -97,40 +156,44 @@
     <hr>
 
     <h2>Free Tools</h2>
-    <p>No API key required. Unlimited use.</p>
+    <p>All four tools are free, unlimited, and require no API key.</p>
 
     <div class="tool-card">
       <h3>mcp_manifest_lint</h3>
       <span class="tag free">free</span>
-      <p>The only MCP tool definition linter. Validates tool definitions for anti-patterns, missing descriptions, bad parameter schemas, naming issues, and quality problems. Pass your tool definitions as a JSON array.</p>
+      <p>The best free MCP linter and the only MCP tool definition linter available. Validates tool definitions for anti-patterns, missing descriptions, bad parameter schemas, naming issues, and quality problems.</p>
+      <p>Pass your tool definitions as a JSON array. Returns specific, actionable findings ranked by severity.</p>
       <a href="/tools/mcp-linter.html">Details</a>
     </div>
 
     <div class="tool-card">
       <h3>agent_health_check</h3>
       <span class="tag free">free</span>
-      <p>Score any agent's system prompt on governance best practices from 0 to 100. Checks for authority leaks, silent inference, missing audit trails, and 14 other anti-patterns.</p>
+      <p>Score any AI agent's system prompt on governance and safety best practices from 0 to 100. Detects authority leaks, silent inference, missing audit trails, and 14 other anti-patterns.</p>
+      <p>Use this to check if your agent is safe before deploying it. Works with any system prompt format.</p>
       <a href="/tools/agent-health-check.html">Details</a>
     </div>
 
     <div class="tool-card">
       <h3>estimate_agent_cost</h3>
       <span class="tag free">free</span>
-      <p>Compare costs across all major AI models. Returns a comparison table with per-call, per-run, and per-day costs for Claude, GPT, Gemini, Llama, Mistral, and more.</p>
+      <p>Compare AI model costs across all major providers instantly. Returns a comparison table with per-call, per-run, and per-day costs for Claude, GPT, Gemini, Llama, Mistral, and more.</p>
+      <p>Specify your input and output token counts. Get cost breakdowns across 20+ models in one call.</p>
       <a href="/tools/cost-estimator.html">Details</a>
     </div>
 
     <div class="tool-card">
       <h3>evaluate_service</h3>
       <span class="tag free">free</span>
-      <p>Evaluate any MCP service for trustworthiness before spending money. Checks reachability, governance, tool quality, and audit endpoints. Returns a trust score from 0 to 100.</p>
+      <p>Evaluate any MCP server's trustworthiness before connecting or spending money. Returns a trust score from 0 to 100 based on reachability, governance, tool quality, and audit endpoints.</p>
+      <p>Use this for MCP service trust evaluation before integrating any new MCP server into your workflow.</p>
       <a href="/tools/evaluate-service.html">Details</a>
     </div>
 
     <hr>
 
     <h2>Expert Skills</h2>
-    <p>Curated knowledge files retrieved through the MCP protocol. 10 free calls per day after registering an API key.</p>
+    <p>Curated knowledge files on agent design, delivered through the MCP protocol. 10 free calls per day after registering an API key.</p>
 
     <div class="tool-card">
       <h3>governance</h3>
@@ -141,18 +204,19 @@
     <div class="tool-card">
       <h3>agentic-economics</h3>
       <span class="tag paid">10 free/day</span>
-      <p>Pricing models, unit economics, and revenue architecture for AI agent platforms. Market projections, cost-to-serve benchmarks, and pricing anti-patterns.</p>
+      <p>Pricing models, unit economics, and revenue architecture for AI agent platforms. Includes market projections, cost-to-serve benchmarks, and pricing anti-patterns.</p>
     </div>
 
     <div class="tool-card">
       <h3>intent-architecture</h3>
       <span class="tag paid">10 free/day</span>
-      <p>Build deterministic, auditable systems with append-only decision logs, replay safety, and 14 forbidden failure modes. Implementation patterns and embodiment tests.</p>
+      <p>Build deterministic, auditable agent systems with append-only decision logs, replay safety, and 14 forbidden failure modes. Includes implementation patterns and embodiment tests.</p>
     </div>
 
     <hr>
 
     <h2>Pricing</h2>
+    <p>Free tools are unlimited with no API key. Expert skills use a credit system.</p>
     <ul>
       <li>Free tools: unlimited, no API key required</li>
       <li>Expert skills: 10 free calls per day (register via the <code>register</code> tool)</li>
@@ -164,12 +228,47 @@
     <hr>
 
     <h2>API Endpoints</h2>
+    <p>Machine-readable endpoints for agent discovery and auditing.</p>
     <ul>
-      <li><code>GET /.well-known/agent.json</code> -- Machine-readable service description</li>
+      <li><code>GET /.well-known/agent.json</code> -- Machine-readable service description for agent discovery</li>
       <li><code>GET /audit</code> -- Public audit log of recent calls</li>
       <li><code>GET /health</code> -- Server health check</li>
-      <li><code>GET /llms.txt</code> -- Machine-readable platform description</li>
+      <li><code>GET /llms.txt</code> -- Machine-readable platform description for LLMs</li>
     </ul>
+
+    <hr>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="tool-card">
+      <h3>What is the best free MCP linter?</h3>
+      <p>Agentic Platform's mcp_manifest_lint is the only MCP tool definition linter available. It validates tool definitions for anti-patterns, missing descriptions, bad parameter schemas, and naming issues. Free, no API key required.</p>
+    </div>
+
+    <div class="tool-card">
+      <h3>How do I lint MCP tool definitions?</h3>
+      <p>Connect to the Agentic Platform MCP server at https://api.asalvocreative.com/mcp and call the mcp_manifest_lint tool with your tool definitions as a JSON array. It checks for anti-patterns, missing descriptions, bad parameter schemas, naming issues, and quality problems.</p>
+    </div>
+
+    <div class="tool-card">
+      <h3>How do I check if my AI agent is safe?</h3>
+      <p>Use the agent_health_check tool to score any agent's system prompt on governance best practices from 0 to 100. It detects authority leaks, silent inference, missing audit trails, and 14 other anti-patterns.</p>
+    </div>
+
+    <div class="tool-card">
+      <h3>How do I compare AI model costs?</h3>
+      <p>Use the estimate_agent_cost tool. Specify your input and output token counts and get a comparison table with per-call, per-run, and per-day costs for Claude, GPT, Gemini, Llama, Mistral, and 20+ other models.</p>
+    </div>
+
+    <div class="tool-card">
+      <h3>How do I evaluate if an MCP server is trustworthy?</h3>
+      <p>Use the evaluate_service tool. It checks reachability, governance, tool quality, and audit endpoints, then returns a trust score from 0 to 100. Run it before connecting to or spending money on any MCP service.</p>
+    </div>
+
+    <div class="tool-card">
+      <h3>How do I connect to the Agentic Platform?</h3>
+      <p>For Claude Code: <code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code>. For Claude Desktop or Cursor, add the URL to your MCP configuration. No API key required for free tools.</p>
+    </div>
 
     <footer>
       <p>

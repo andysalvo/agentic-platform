@@ -514,7 +514,7 @@ async def serve_tool_page(request: Request):
 async def serve_static_file(request: Request):
     """Serve robots.txt, llms.txt, sitemap.xml, style.css."""
     filename = request.url.path.lstrip("/")
-    allowed = {"robots.txt", "llms.txt", "sitemap.xml", "style.css"}
+    allowed = {"robots.txt", "llms.txt", "sitemap.xml", "style.css", "google18c2a0e2cf9beb61.html", "674b61d33182a9385379841b4441a673.txt", "terms.html", "privacy.html"}
     if filename in allowed:
         filepath = SITE_DIR / filename
         if filepath.exists():
@@ -546,10 +546,14 @@ app = Starlette(
         Route("/checkout/success", checkout_success, methods=["GET"]),
         Route("/checkout/cancel", checkout_cancel, methods=["GET"]),
         # Static SEO pages
+        Route("/google18c2a0e2cf9beb61.html", serve_static_file, methods=["GET"]),
+        Route("/674b61d33182a9385379841b4441a673.txt", serve_static_file, methods=["GET"]),
         Route("/robots.txt", serve_static_file, methods=["GET"]),
         Route("/llms.txt", serve_static_file, methods=["GET"]),
         Route("/sitemap.xml", serve_static_file, methods=["GET"]),
         Route("/style.css", serve_static_file, methods=["GET"]),
+        Route("/terms.html", serve_static_file, methods=["GET"]),
+        Route("/privacy.html", serve_static_file, methods=["GET"]),
         Route("/tools/{tool_name}", serve_tool_page, methods=["GET"]),
         # Homepage (GET / serves HTML, POST /mcp goes to MCP)
         Route("/", serve_index, methods=["GET"]),

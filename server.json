@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.andysalvo/agentic-platform",
+  "title": "Agentic Platform",
+  "description": "Free MCP tools: the only MCP linter, health checks, cost estimation, and trust evaluation.",
+  "version": "1.0.0",
+  "repository": {
+    "url": "https://github.com/andysalvo/agentic-platform",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.asalvocreative.com/mcp"
+    }
+  ]
+}

@@ -3,25 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agent Cost Estimator -- Compare AI Model Costs | Agentic Platform</title>
-  <meta name="description" content="Compare the cost of running AI agent tasks across all major models: Claude, GPT, Gemini, Llama, Mistral. Per-call and per-day cost tables with optimization tips. Free MCP tool.">
-  <meta name="keywords" content="AI agent cost calculator, LLM cost comparison, agent cost estimation, AI model pricing, Claude cost, GPT cost, compare AI model prices, agent economics">
+  <title>AI Model Cost Comparison Tool -- Compare Claude, GPT-4, Gemini, Llama Pricing | Agentic Platform</title>
+  <meta name="description" content="estimate_agent_cost compares the cost of running any AI agent task across Claude, GPT-4, Gemini, Llama, Mistral, and 20+ other models, returning per-call and per-day cost breakdowns. Free MCP tool, no API key required.">
+  <meta name="keywords" content="AI model cost comparison, how much does GPT-4 cost vs Claude, agent cost calculator, AI API pricing comparison, cheapest AI model for agents, LLM cost estimator, AI agent cost, compare AI model prices">
   <link rel="canonical" href="https://api.asalvocreative.com/tools/cost-estimator.html">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Agent Cost Estimator -- Compare AI Model Costs">
-  <meta property="og:description" content="Compare AI agent costs across Claude, GPT, Gemini, Llama, Mistral. Per-call and per-day cost tables. Free MCP tool.">
+  <meta property="og:title" content="AI Model Cost Comparison -- Claude vs GPT-4 vs Gemini vs Llama Pricing">
+  <meta property="og:description" content="Compare AI agent costs across Claude, GPT-4, Gemini, Llama, Mistral, and 20+ models. Per-call and per-day cost tables. Free MCP tool.">
   <meta property="og:url" content="https://api.asalvocreative.com/tools/cost-estimator.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Agentic Platform">
 
-  <!-- JSON-LD -->
+  <!-- SoftwareApplication JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Agent Cost Estimator",
-    "description": "Compare the cost of running AI agent tasks across all major models including Claude, GPT, Gemini, Llama, and Mistral. Returns comparison tables with per-call, per-run, and per-day costs.",
+    "name": "estimate_agent_cost",
+    "alternateName": "AI Agent Cost Estimator",
+    "description": "Compares the cost of running any AI agent task across Claude, GPT-4, Gemini, Llama, Mistral, and 20+ other models. Returns a comparison table with per-call, per-run, and per-day cost breakdowns plus optimization recommendations.",
     "url": "https://api.asalvocreative.com/tools/cost-estimator.html",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
@@ -32,18 +33,61 @@
       "priceCurrency": "USD"
     },
     "featureList": [
-      "Cost comparison across all major AI models",
-      "Per-call and per-day pricing",
-      "Claude, GPT, Gemini, Llama, Mistral coverage",
-      "Custom token count estimation",
-      "Optimization recommendations",
-      "Multi-call task costing"
+      "AI model cost comparison across 20+ models",
+      "Per-call, per-run, and per-day pricing",
+      "Claude, GPT-4, Gemini, Llama, Mistral coverage",
+      "Custom input and output token estimation",
+      "Task-specific optimization recommendations",
+      "Multi-call agent workflow costing",
+      "No API key required"
     ],
     "author": {
       "@type": "Organization",
       "name": "AMI Labs",
       "url": "https://github.com/andysalvo/agentic-platform"
     }
+  }
+  </script>
+
+  <!-- FAQPage JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does it cost to run an AI agent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The cost of running an AI agent depends on the model, token usage, and number of API calls. For example, a 5-call agent task using 2,000 input and 1,000 output tokens per call costs roughly $0.045 on Claude Sonnet, $0.038 on GPT-4o, $0.002 on Gemini 2.5 Flash, and $0.006 on Claude Haiku. Use estimate_agent_cost to get an exact comparison across all major models for your specific workload."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which AI model is cheapest for running agents?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For most agent tasks, Gemini 2.5 Flash and GPT-4o mini are the cheapest options at roughly $0.0002-$0.0005 per call with typical token counts. Claude Haiku and Llama models via API providers also offer low-cost alternatives. The cheapest model depends on your input/output token ratio and call volume. estimate_agent_cost ranks all models by cost for your exact parameters."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I estimate AI API costs before building?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use estimate_agent_cost with your expected input tokens, output tokens, and number of API calls per task. It returns a side-by-side comparison table for Claude, GPT-4, Gemini, Llama, Mistral, and other models showing per-call, per-run, and per-day costs. Connect via MCP at https://api.asalvocreative.com/mcp -- free, no API key required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does GPT-4 cost compared to Claude?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GPT-4o costs approximately $2.50 per million input tokens and $10 per million output tokens. Claude Sonnet 4 costs $3 per million input and $15 per million output. Claude Haiku is significantly cheaper at $0.80/$4. For a direct comparison with your exact token usage, use estimate_agent_cost to generate a full pricing table."
+        }
+      }
+    ]
   }
   </script>
 
@@ -59,27 +103,54 @@
       <a href="/tools/evaluate-service.html">evaluator</a>
     </nav>
 
-    <h1>Agent Cost Estimator</h1>
-    <p class="subtitle">Compare AI model costs for any agent task</p>
+    <h1>AI Agent Cost Estimator</h1>
+    <p class="subtitle">Compare AI model pricing for any agent workflow</p>
 
     <div class="endpoint">
       <span class="label">MCP Endpoint</span>
       <span class="url">https://api.asalvocreative.com/mcp</span>
     </div>
 
-    <p>The <code>estimate_agent_cost</code> tool compares the cost of running an agent task across all major AI models. It returns a comparison table with per-call, per-run, and per-day costs, plus optimization tips based on your task description. Free to use, no API key required.</p>
+    <p><code>estimate_agent_cost</code> compares the cost of running any AI agent task across Claude, GPT-4, Gemini, Llama, Mistral, and 20+ other models, returning per-call and per-day cost breakdowns. Free to use, no API key required.</p>
+
+    <p>Specify your input tokens, output tokens, and number of API calls per task. The tool returns a ranked comparison table so you can pick the cheapest model that meets your quality requirements.</p>
+
+    <p>Pricing data covers the latest model versions including Claude Opus 4, Claude Sonnet 4, GPT-4o, Gemini 2.5 Pro, Llama 4, and Mistral Large. The table updates as providers change their rates.</p>
 
     <h2>Models Covered</h2>
     <ul>
-      <li>Anthropic: Claude Opus, Sonnet, Haiku</li>
-      <li>OpenAI: GPT-4o, GPT-4o mini, o1, o3</li>
-      <li>Google: Gemini 2.5 Pro, Gemini 2.5 Flash</li>
-      <li>Meta: Llama 4 Maverick, Llama 4 Scout</li>
-      <li>Mistral: Large, Small, Codestral</li>
-      <li>Additional models as they are released</li>
+      <li><strong>Anthropic</strong> -- Claude Opus 4, Claude Sonnet 4, Claude Haiku 3.5</li>
+      <li><strong>OpenAI</strong> -- GPT-4o, GPT-4o mini, o1, o3, o4-mini</li>
+      <li><strong>Google</strong> -- Gemini 2.5 Pro, Gemini 2.5 Flash</li>
+      <li><strong>Meta</strong> -- Llama 4 Maverick, Llama 4 Scout</li>
+      <li><strong>Mistral</strong> -- Mistral Large, Mistral Small, Codestral</li>
+      <li><strong>Others</strong> -- DeepSeek, Cohere, and additional models as released</li>
     </ul>
 
-    <h2>Parameters</h2>
+    <h2>How to Use It</h2>
+
+    <h3>1. Connect via MCP</h3>
+
+    <div class="connect-box">
+      <h3>Claude Code</h3>
+      <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+
+      <h3>Claude Desktop / Cursor</h3>
+      <pre><code>{
+  "mcpServers": {
+    "agentic-platform": {
+      "url": "https://api.asalvocreative.com/mcp"
+    }
+  }
+}</code></pre>
+
+      <h3>Smithery</h3>
+      <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
+    </div>
+
+    <h3>2. Call the Tool</h3>
+
+    <h3>Parameters</h3>
     <ul>
       <li><code>model</code> -- Model name to highlight in the comparison (optional)</li>
       <li><code>input_tokens</code> -- Estimated input tokens per API call (default: 1000)</li>
@@ -87,8 +158,6 @@
       <li><code>num_calls</code> -- Number of API calls per task run (default: 1)</li>
       <li><code>task_description</code> -- What the agent does, for optimization tips (optional)</li>
     </ul>
-
-    <h2>Usage</h2>
 
     <h3>Example Input</h3>
     <pre><code>estimate_agent_cost({
@@ -111,6 +180,7 @@ claude-haiku-3.5       $0.0013    $0.0063    $0.0625
 gpt-4o                 $0.0075    $0.0375    $0.3750
 gpt-4o-mini            $0.0005    $0.0023    $0.0225
 gemini-2.5-flash       $0.0004    $0.0019    $0.0188
+llama-4-scout          $0.0003    $0.0016    $0.0163
 ...
 
 Optimization tips:
@@ -118,29 +188,26 @@ Optimization tips:
   - Cache system prompt to reduce input token costs
   - Batch small PRs to reduce per-call overhead</code></pre>
 
-    <h2>Connect</h2>
+    <hr>
 
-    <div class="connect-box">
-      <h3>Claude Code</h3>
-      <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+    <h2>Frequently Asked Questions</h2>
 
-      <h3>Claude Desktop / Cursor</h3>
-      <pre><code>{
-  "mcpServers": {
-    "agentic-platform": {
-      "url": "https://api.asalvocreative.com/mcp"
-    }
-  }
-}</code></pre>
+    <h3>How much does it cost to run an AI agent?</h3>
+    <p>It depends on the model, token usage, and call volume. A typical 5-call agent task costs $0.002 to $0.045 per run depending on the model. Gemini 2.5 Flash and GPT-4o mini are the cheapest at scale. Claude Sonnet and GPT-4o cost more but produce higher-quality output. Use <code>estimate_agent_cost</code> with your exact parameters to get a full comparison.</p>
 
-      <h3>Smithery</h3>
-      <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
-    </div>
+    <h3>Which AI model is cheapest for agents?</h3>
+    <p>For most workloads, Gemini 2.5 Flash and GPT-4o mini offer the lowest per-call cost. Llama 4 Scout via API providers is also competitive. The best choice depends on your input/output token ratio and whether you need frontier-level reasoning. The tool ranks every model by cost for your specific use case.</p>
+
+    <h3>How does GPT-4 pricing compare to Claude?</h3>
+    <p>GPT-4o runs approximately $2.50/$10 per million tokens (input/output). Claude Sonnet 4 runs $3/$15. Claude Haiku 3.5 is significantly cheaper at $0.80/$4. For high-volume agent tasks, the difference compounds quickly. Run <code>estimate_agent_cost</code> to see exact numbers for your token counts.</p>
+
+    <h3>How do I estimate AI API costs before building?</h3>
+    <p>Set your expected <code>input_tokens</code>, <code>output_tokens</code>, and <code>num_calls</code> per task. The tool returns a side-by-side table with per-call, per-run, and per-day costs across all major models. No signup needed. Connect to the MCP endpoint and call <code>estimate_agent_cost</code>.</p>
 
     <hr>
 
     <h2>About the Agentic Platform</h2>
-    <p>The Agentic Platform is an MCP server that provides free agent diagnostics and expert skill files. In addition to the cost estimator, it offers an <a href="/tools/mcp-linter.html">MCP linter</a>, <a href="/tools/agent-health-check.html">agent health check</a>, and <a href="/tools/evaluate-service.html">service trust evaluator</a> -- all free, no API key required.</p>
+    <p>The Agentic Platform is an MCP server providing free agent diagnostics and expert skill files. In addition to the cost estimator, it offers an <a href="/tools/mcp-linter.html">MCP linter</a>, <a href="/tools/agent-health-check.html">agent health check</a>, and <a href="/tools/evaluate-service.html">service trust evaluator</a> -- all free, no API key required.</p>
 
     <footer>
       <p>

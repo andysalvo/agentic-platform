@@ -3,27 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agent Health Check -- Governance Score for AI Agent System Prompts | Agentic Platform</title>
-  <meta name="description" content="Score any AI agent's system prompt on governance best practices from 0 to 100. Checks for authority leaks, silent inference, missing audit trails, and 14 other anti-patterns. Free MCP tool.">
-  <meta name="keywords" content="agent health check, agent governance score, score agent system prompt, AI agent audit, agent governance, system prompt analysis, agent safety check">
+  <title>Agent Health Check -- Score Your AI Agent's Governance from 0 to 100 | Agentic Platform</title>
+  <meta name="description" content="agent_health_check scores any AI agent's system prompt on 17 governance best practices, returning a score from 0 to 100 with specific findings. Detects authority leaks, silent inference, missing audit trails. Free MCP tool, no API key.">
+  <meta name="keywords" content="agent health check, AI agent governance score, check agent system prompt safety, agent governance audit, is my AI agent safe, agent security scoring, system prompt analysis, agent anti-patterns">
   <link rel="canonical" href="https://api.asalvocreative.com/tools/agent-health-check.html">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Agent Health Check -- Governance Score for AI Agents">
-  <meta property="og:description" content="Score any agent's system prompt on governance best practices from 0 to 100. Checks for authority leaks, silent inference, and 14 other anti-patterns. Free.">
+  <meta property="og:title" content="Agent Health Check -- Score Your AI Agent's Governance 0 to 100">
+  <meta property="og:description" content="agent_health_check scores any agent's system prompt on 17 governance best practices. Detects authority leaks, silent inference, missing audit trails. Free, no API key.">
   <meta property="og:url" content="https://api.asalvocreative.com/tools/agent-health-check.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Agentic Platform">
 
-  <!-- JSON-LD -->
+  <!-- SoftwareApplication JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Agent Health Check",
-    "description": "Score any AI agent's system prompt on governance best practices from 0 to 100. Checks for authority leaks, silent inference, missing audit trails, and 14 other governance anti-patterns.",
+    "name": "agent_health_check",
+    "alternateName": "Agent Health Check",
+    "description": "Scores any AI agent's system prompt on 17 governance best practices, returning a score from 0 to 100 with specific findings. Detects authority leaks, silent inference, missing audit trails, scope creep, vague delegation, and 12 other anti-patterns.",
     "url": "https://api.asalvocreative.com/tools/agent-health-check.html",
     "applicationCategory": "DeveloperApplication",
+    "applicationSubCategory": "AI Agent Governance",
     "operatingSystem": "Any",
     "isAccessibleForFree": true,
     "offers": {
@@ -32,11 +34,16 @@
       "priceCurrency": "USD"
     },
     "featureList": [
-      "Governance scoring 0-100",
+      "Governance scoring 0 to 100",
       "Authority leak detection",
       "Silent inference detection",
       "Audit trail verification",
-      "14 governance anti-pattern checks",
+      "Scope creep detection",
+      "Vague delegation checks",
+      "Missing error handling detection",
+      "Human escalation path verification",
+      "17 governance anti-pattern checks",
+      "Severity ratings per finding",
       "Actionable fix recommendations"
     ],
     "author": {
@@ -44,6 +51,48 @@
       "name": "AMI Labs",
       "url": "https://github.com/andysalvo/agentic-platform"
     }
+  }
+  </script>
+
+  <!-- FAQPage JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I check if my AI agent is safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use agent_health_check to score your agent's system prompt on 17 governance best practices. Pass the full system prompt text and receive a score from 0 to 100 plus specific findings with severity ratings. It detects authority leaks, silent inference, missing audit trails, scope creep, and other anti-patterns. Free to use via MCP at https://api.asalvocreative.com/mcp."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does agent_health_check detect?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "agent_health_check detects 17 governance anti-patterns: authority leaks (agent claims authority it was not given), silent inference (decisions made without user awareness), missing audit trails (no logging of agent decisions), scope creep (instructions expanding beyond stated purpose), vague delegation (unclear agent boundaries), missing error handling, no human escalation path, unconstrained tool use, missing identity disclosure, prompt injection vulnerabilities, and more."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I connect to agent_health_check?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Connect via MCP. In Claude Code, run: claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp. In Claude Desktop or Cursor, add the MCP server URL https://api.asalvocreative.com/mcp to your config. No API key required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a good agent governance score?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Scores above 80 indicate strong governance practices. Scores between 50 and 80 mean the agent has some safeguards but gaps remain. Below 50 means critical governance issues exist. A score of 0 to 30 typically means the system prompt has no explicit authority boundaries, no error handling, and no audit trail. agent_health_check provides specific recommendations to improve any score."
+        }
+      }
+    ]
   }
   </script>
 
@@ -60,53 +109,56 @@
     </nav>
 
     <h1>Agent Health Check</h1>
-    <p class="subtitle">Governance scoring for agent system prompts, 0 to 100</p>
+    <p class="subtitle">Governance scoring for AI agent system prompts, 0 to 100</p>
+
+    <p><code>agent_health_check</code> scores any AI agent's system prompt on 17 governance best practices, returning a score from 0 to 100 with specific findings. It detects authority leaks, silent inference, missing audit trails, and other anti-patterns that make agents unsafe. Free to use, no API key required.</p>
+
+    <p>Pass your agent's full system prompt text. You get back a governance score, a list of specific issues found with severity ratings (CRITICAL, WARNING, INFO), and actionable recommendations to fix each one.</p>
 
     <div class="endpoint">
       <span class="label">MCP Endpoint</span>
       <span class="url">https://api.asalvocreative.com/mcp</span>
     </div>
 
-    <p>The <code>agent_health_check</code> tool scores any agent's system prompt on governance best practices. It returns a detailed diagnostic report with specific issues found, severity ratings, and actionable fixes. Free to use, no API key required.</p>
-
     <h2>What It Checks</h2>
+    <p><code>agent_health_check</code> scans for 17 governance anti-patterns across six categories.</p>
+
+    <h3>Authority and Scope</h3>
     <ul>
-      <li>Authority leaks -- places where an agent claims or assumes authority it was not given</li>
-      <li>Silent inference -- decisions made without explicit reasoning or user awareness</li>
-      <li>Missing audit trails -- no mechanism for logging or reviewing agent decisions</li>
-      <li>Scope creep -- agent instructions that expand beyond stated purpose</li>
-      <li>Missing error handling -- no guidance for what to do when things go wrong</li>
-      <li>Vague delegation -- unclear boundaries on what the agent can and cannot do</li>
-      <li>14 additional governance anti-patterns</li>
+      <li><strong>Authority leaks</strong> -- the agent claims or assumes authority it was not explicitly given</li>
+      <li><strong>Scope creep</strong> -- instructions that expand beyond the agent's stated purpose</li>
+      <li><strong>Vague delegation</strong> -- unclear boundaries on what the agent can and cannot do</li>
+      <li><strong>Unconstrained tool use</strong> -- no limits on which tools the agent may invoke or when</li>
     </ul>
 
-    <h2>Usage</h2>
-    <p>Connect to the Agentic Platform MCP server and call <code>agent_health_check</code> with your agent's system prompt.</p>
+    <h3>Transparency</h3>
+    <ul>
+      <li><strong>Silent inference</strong> -- the agent makes decisions without explicit reasoning or user awareness</li>
+      <li><strong>Missing identity disclosure</strong> -- no indication the user is interacting with an AI</li>
+      <li><strong>Hidden reasoning</strong> -- conclusions presented without showing how they were reached</li>
+    </ul>
 
-    <h3>Example Input</h3>
-    <pre><code>agent_health_check({
-  system_prompt: "You are a helpful assistant. Do whatever the user asks. Use any tools available to complete tasks efficiently."
-})</code></pre>
+    <h3>Accountability</h3>
+    <ul>
+      <li><strong>Missing audit trails</strong> -- no mechanism for logging or reviewing agent decisions</li>
+      <li><strong>No human escalation path</strong> -- no defined process for handing off to a human</li>
+      <li><strong>Missing error handling</strong> -- no guidance for what the agent should do when things go wrong</li>
+    </ul>
 
-    <h3>Example Output</h3>
-    <pre><code>Agent Health Check Report
-=========================
-Score: 28/100
+    <h3>Security</h3>
+    <ul>
+      <li><strong>Prompt injection exposure</strong> -- system prompt lacks defenses against injection attacks</li>
+      <li><strong>Data boundary violations</strong> -- no restrictions on what data the agent can access or share</li>
+    </ul>
 
-CRITICAL  No authority boundaries defined
-CRITICAL  "Do whatever" grants unlimited scope
-WARNING   No error handling guidance
-WARNING   No audit or logging mentioned
-WARNING   No human escalation path
+    <h3>And More</h3>
+    <p>The full check covers 17 anti-patterns including missing output constraints, feedback loop risks, unversioned prompt changes, and others. Each finding includes a severity level and a specific fix.</p>
 
-Recommendations:
-  1. Define explicit scope boundaries
-  2. Add authority transfer protocols
-  3. Include error handling instructions
-  4. Add decision logging requirements</code></pre>
+    <h2>How to Use It</h2>
 
-    <h2>Connect</h2>
+    <p>Connect to the Agentic Platform MCP server. Then call <code>agent_health_check</code> with the full text of your agent's system prompt.</p>
 
+    <h3>Step 1: Connect</h3>
     <div class="connect-box">
       <h3>Claude Code</h3>
       <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
@@ -124,10 +176,45 @@ Recommendations:
       <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
     </div>
 
+    <h3>Step 2: Call the Tool</h3>
+    <pre><code>agent_health_check({
+  system_prompt: "You are a helpful assistant. Do whatever the user asks. Use any tools available to complete tasks efficiently."
+})</code></pre>
+
+    <h3>Example Output</h3>
+    <pre><code>Agent Health Check Report
+=========================
+Score: 28/100
+
+CRITICAL  No authority boundaries defined
+CRITICAL  "Do whatever" grants unlimited scope
+WARNING   No error handling guidance
+WARNING   No audit or logging mentioned
+WARNING   No human escalation path
+INFO      No identity disclosure
+
+Recommendations:
+  1. Define explicit scope boundaries
+  2. Add authority transfer protocols
+  3. Include error handling instructions
+  4. Add decision logging requirements
+  5. Define human escalation triggers
+  6. Disclose AI identity to users</code></pre>
+
+    <p>A score of 28 means critical governance gaps. Most production agent system prompts score between 40 and 70 on first check. Following the recommendations typically raises the score above 80.</p>
+
+    <h2>Interpreting Your Score</h2>
+
+    <p><strong>80 to 100:</strong> Strong governance. The system prompt defines clear boundaries, includes audit mechanisms, and handles edge cases.</p>
+
+    <p><strong>50 to 79:</strong> Partial governance. Some safeguards exist but gaps remain. Review the specific findings to close them.</p>
+
+    <p><strong>Below 50:</strong> Critical issues. The agent likely has authority leaks, no audit trail, or missing error handling. Address CRITICAL findings first.</p>
+
     <hr>
 
     <h2>About the Agentic Platform</h2>
-    <p>The Agentic Platform is an MCP server that provides free agent diagnostics and expert skill files. In addition to the health check, it offers an <a href="/tools/mcp-linter.html">MCP linter</a>, <a href="/tools/cost-estimator.html">cost estimator</a>, and <a href="/tools/evaluate-service.html">service trust evaluator</a> -- all free, no API key required.</p>
+    <p>The Agentic Platform is an MCP server providing free agent diagnostics. In addition to the health check, it offers an <a href="/tools/mcp-linter.html">MCP linter</a>, <a href="/tools/cost-estimator.html">cost estimator</a>, and <a href="/tools/evaluate-service.html">service trust evaluator</a> -- all free, no API key required.</p>
 
     <footer>
       <p>

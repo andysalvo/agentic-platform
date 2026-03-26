@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validate MCP Tool Definitions -- Free MCP Tool Validator | Agentic Platform</title>
+  <meta name="description" content="Validate your MCP tool definitions for free using mcp_manifest_lint, the only dedicated MCP tool validator. Checks descriptions, schemas, naming, annotations, and anti-patterns.">
+  <meta name="keywords" content="validate MCP tools, MCP tool validation, check MCP tool quality, MCP tool validator, Model Context Protocol validation, MCP tool definitions">
+  <link rel="canonical" href="https://api.asalvocreative.com/tools/validate-mcp-tools.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Validate MCP Tool Definitions -- Free MCP Tool Validator">
+  <meta property="og:description" content="Validate your MCP tool definitions for free. Checks descriptions, schemas, naming, annotations, and anti-patterns. No API key required.">
+  <meta property="og:url" content="https://api.asalvocreative.com/tools/validate-mcp-tools.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agentic Platform">
+
+  <!-- JSON-LD SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "MCP Tool Validator",
+    "description": "Validate your MCP tool definitions for free using mcp_manifest_lint, the only dedicated MCP tool validator. Checks descriptions, schemas, naming, annotations, and anti-patterns.",
+    "url": "https://api.asalvocreative.com/tools/validate-mcp-tools.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Validates MCP tool definitions",
+      "Checks parameter schemas for completeness",
+      "Flags missing or vague descriptions",
+      "Detects naming anti-patterns",
+      "Verifies MCP annotations",
+      "Returns actionable fix suggestions"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "AMI Labs",
+      "url": "https://github.com/andysalvo/agentic-platform"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I validate MCP tool definitions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Connect to the Agentic Platform MCP server at https://api.asalvocreative.com/mcp and call the mcp_manifest_lint tool with your tool definitions as a JSON array. It returns a pass/fail report with specific fixes for each issue found."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does the MCP tool validator check?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It checks six categories: missing or inadequate descriptions, bad parameter schemas (missing types, descriptions, constraints), naming anti-patterns (inconsistent casing, ambiguous names), missing annotations (readOnlyHint, destructiveHint), overly broad parameter definitions, and definitions that would confuse an agent during tool selection."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the MCP tool validator free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The mcp_manifest_lint tool is completely free to use with no API key required. Connect to the MCP endpoint and start validating immediately."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I validate tools before publishing to Smithery or Glama?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Running mcp_manifest_lint before publishing catches issues that would hurt your tool's discoverability and usability on MCP registries. It flags the same quality problems that cause agents to skip your tools."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/">home</a>
+      <a href="/tools/mcp-linter.html">linter</a>
+      <a href="/tools/agent-health-check.html">health check</a>
+      <a href="/tools/cost-estimator.html">cost estimator</a>
+      <a href="/tools/evaluate-service.html">evaluator</a>
+    </nav>
+
+    <h1>Validate MCP Tool Definitions</h1>
+    <p class="subtitle">Free validator for MCP tool quality</p>
+
+    <p>Validate your MCP tool definitions for free using <code>mcp_manifest_lint</code>, the only dedicated MCP tool validator. It checks descriptions, parameter schemas, naming conventions, annotations, and anti-patterns that cause agents to misuse or skip your tools.</p>
+
+    <div class="endpoint">
+      <span class="label">MCP Endpoint</span>
+      <span class="url">https://api.asalvocreative.com/mcp</span>
+    </div>
+
+    <h2>Step-by-Step Validation</h2>
+
+    <h3>1. Connect to the MCP server</h3>
+    <p>Add the Agentic Platform to your MCP client. For Claude Code:</p>
+    <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+
+    <h3>2. Prepare your tool definitions</h3>
+    <p>Gather your MCP tool definitions as a JSON array. Each tool object should include <code>name</code>, <code>description</code>, and <code>inputSchema</code>.</p>
+
+    <h3>3. Run the validator</h3>
+    <p>Call <code>mcp_manifest_lint</code> with your tool definitions:</p>
+    <pre><code>mcp_manifest_lint({
+  tools_json: '[{"name": "search_docs", "description": "Search documentation", "inputSchema": {"type": "object", "properties": {"query": {"type": "string"}}}}]'
+})</code></pre>
+
+    <h3>4. Review the report</h3>
+    <p>The validator returns a structured report with pass/fail status and specific fixes for each issue:</p>
+    <pre><code>MCP Manifest Lint Report
+========================
+
+Tool: search_docs
+  PASS  Description present and clear
+  WARN  Parameter "query" missing description
+  WARN  Missing annotations (readOnlyHint, destructiveHint)
+
+1 tool checked. 0 errors, 2 warnings.</code></pre>
+
+    <h2>What Gets Validated</h2>
+    <ul>
+      <li><strong>Descriptions</strong> -- missing, empty, or too vague for an agent to understand the tool's purpose</li>
+      <li><strong>Parameter schemas</strong> -- missing types, missing descriptions, missing constraints on string/number fields</li>
+      <li><strong>Naming conventions</strong> -- inconsistent casing, ambiguous names like "do_stuff" or "process"</li>
+      <li><strong>Annotations</strong> -- missing <code>readOnlyHint</code>, <code>destructiveHint</code>, and other MCP annotations</li>
+      <li><strong>Scope</strong> -- overly broad parameter definitions that give agents too much freedom</li>
+      <li><strong>Agent confusion</strong> -- definitions that would cause an agent to select the wrong tool or pass bad arguments</li>
+    </ul>
+
+    <h2>Why Validate Before Publishing</h2>
+    <p>MCP registries like Smithery and Glama surface tools based on definition quality. Poor descriptions and missing schemas mean agents skip your tools entirely.</p>
+
+    <p>Running the validator before publishing catches the issues that matter. One pass through <code>mcp_manifest_lint</code> takes seconds and prevents hours of debugging agent behavior.</p>
+
+    <h2>Connect</h2>
+
+    <div class="connect-box">
+      <h3>Claude Code</h3>
+      <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+
+      <h3>Claude Desktop / Cursor</h3>
+      <pre><code>{
+  "mcpServers": {
+    "agentic-platform": {
+      "url": "https://api.asalvocreative.com/mcp"
+    }
+  }
+}</code></pre>
+
+      <h3>Smithery</h3>
+      <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
+    </div>
+
+    <hr>
+
+    <h2>About the Agentic Platform</h2>
+    <p>The Agentic Platform is an MCP server that provides free agent diagnostics and expert skill files. In addition to the MCP linter, it offers an <a href="/tools/agent-health-check.html">agent health check</a>, <a href="/tools/cost-estimator.html">cost estimator</a>, and <a href="/tools/evaluate-service.html">service trust evaluator</a> -- all free, no API key required.</p>
+
+    <footer>
+      <p>
+        <a href="https://github.com/andysalvo/agentic-platform">GitHub</a> &middot;
+        MCP endpoint: <code>https://api.asalvocreative.com/mcp</code>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

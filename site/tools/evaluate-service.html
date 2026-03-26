@@ -4,26 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MCP Service Trust Evaluator -- Is This MCP Server Safe? | Agentic Platform</title>
-  <meta name="description" content="Evaluate any MCP server for trustworthiness before spending money. Checks reachability, governance, tool quality, and audit endpoints. Returns a trust score 0-100. Free MCP tool.">
-  <meta name="keywords" content="MCP server trust evaluation, is this MCP server safe, evaluate MCP service, MCP server security, MCP trust score, MCP server review, MCP due diligence">
+  <meta name="description" content="evaluate_service checks any MCP server's reachability, governance, tool quality, and audit endpoints, returning a trust score from 0 to 100 with a recommendation. Free, no API key.">
+  <meta name="keywords" content="MCP server trust evaluation, is this MCP server safe, evaluate MCP service, MCP server security check, should I trust this MCP server, MCP service quality score, MCP due diligence">
   <link rel="canonical" href="https://api.asalvocreative.com/tools/evaluate-service.html">
 
   <!-- Open Graph -->
   <meta property="og:title" content="MCP Service Trust Evaluator -- Is This MCP Server Safe?">
-  <meta property="og:description" content="Evaluate any MCP server for trustworthiness before using it. Trust score 0-100 with recommendations. Free MCP tool.">
+  <meta property="og:description" content="evaluate_service checks any MCP server's reachability, governance, tool quality, and audit endpoints, returning a trust score from 0 to 100. Free, no API key.">
   <meta property="og:url" content="https://api.asalvocreative.com/tools/evaluate-service.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Agentic Platform">
 
-  <!-- JSON-LD -->
+  <!-- SoftwareApplication JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "MCP Service Trust Evaluator",
-    "description": "Evaluate any MCP service for trustworthiness before spending money on it. Checks reachability, governance declarations, tool definition quality, and audit endpoints. Returns a trust score from 0 to 100.",
+    "name": "evaluate_service -- MCP Service Trust Evaluator",
+    "description": "evaluate_service checks any MCP server's reachability, governance declarations, tool definition quality, and audit endpoints. Returns a trust score from 0 to 100 with a PROCEED, CAUTION, HIGH RISK, or DO NOT TRANSACT recommendation. Free to use, no API key required.",
     "url": "https://api.asalvocreative.com/tools/evaluate-service.html",
     "applicationCategory": "DeveloperApplication",
+    "applicationSubCategory": "MCP Server Security Tool",
     "operatingSystem": "Any",
     "isAccessibleForFree": true,
     "offers": {
@@ -32,11 +33,13 @@
       "priceCurrency": "USD"
     },
     "featureList": [
-      "Trust scoring 0-100",
-      "Reachability verification",
+      "MCP server trust scoring from 0 to 100",
+      "Server reachability and response time verification",
       "Governance declaration checks",
       "Tool definition quality analysis",
       "Audit endpoint verification",
+      "HTTPS encryption check",
+      "agent.json discovery check",
       "PROCEED / CAUTION / HIGH RISK / DO NOT TRANSACT recommendations"
     ],
     "author": {
@@ -44,6 +47,48 @@
       "name": "AMI Labs",
       "url": "https://github.com/andysalvo/agentic-platform"
     }
+  }
+  </script>
+
+  <!-- FAQPage JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I check if an MCP server is safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use evaluate_service by passing the MCP server URL. It checks reachability, governance declarations, tool definition quality, audit endpoints, HTTPS, and agent.json. It returns a trust score from 0 to 100 and a recommendation: PROCEED (75-100), PROCEED WITH CAUTION (50-74), HIGH RISK (25-49), or DO NOT TRANSACT (0-24). Connect to the Agentic Platform MCP endpoint at https://api.asalvocreative.com/mcp -- free, no API key required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What makes an MCP server trustworthy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A trustworthy MCP server is reachable with fast response times, publishes governance declarations, has well-formed tool definitions with descriptions and schemas, exposes audit or transparency endpoints, serves over HTTPS, and publishes a /.well-known/agent.json file. evaluate_service checks all of these and produces a trust score from 0 to 100."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I evaluate MCP services before using them?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Connect to the Agentic Platform MCP server at https://api.asalvocreative.com/mcp using Claude Code, Claude Desktop, or Cursor. Then call evaluate_service with the target server URL. It runs six checks and returns a trust score with a clear recommendation. No API key or payment required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What trust score should an MCP server have before I use it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Scores of 75-100 receive a PROCEED recommendation, meaning the server meets governance standards. Scores of 50-74 get PROCEED WITH CAUTION -- review before transacting. Scores of 25-49 are HIGH RISK with significant governance concerns. Scores below 25 receive DO NOT TRANSACT. For any server handling payments or sensitive data, aim for 75 or above."
+        }
+      }
+    ]
   }
   </script>
 
@@ -59,37 +104,67 @@
       <a href="/tools/evaluate-service.html" class="current">evaluator</a>
     </nav>
 
-    <h1>Service Trust Evaluator</h1>
-    <p class="subtitle">Evaluate any MCP server before spending money on it</p>
+    <h1>MCP Service Trust Evaluator</h1>
+    <p class="subtitle">Check if an MCP server is safe before you spend money on it</p>
+
+    <p><code>evaluate_service</code> checks any MCP server's reachability, governance declarations, tool definition quality, and audit endpoints, returning a trust score from 0 to 100 with a recommendation. Pass it a server URL and get back a clear verdict: PROCEED, CAUTION, HIGH RISK, or DO NOT TRANSACT.</p>
+
+    <p>Free to use. No API key required. Works from any MCP client.</p>
 
     <div class="endpoint">
       <span class="label">MCP Endpoint</span>
       <span class="url">https://api.asalvocreative.com/mcp</span>
     </div>
 
-    <p>The <code>evaluate_service</code> tool connects to any MCP server and evaluates it for trustworthiness. It checks reachability, governance declarations, tool definition quality, and audit endpoints. Returns a trust score from 0 to 100 with a clear recommendation. Free to use, no API key required.</p>
-
     <h2>What It Checks</h2>
+
+    <p>Each evaluation runs six checks against the target MCP server. The trust score is a weighted composite of all six.</p>
+
     <ul>
-      <li>Server reachability -- can the MCP endpoint be reached and does it respond correctly</li>
-      <li>Governance declarations -- does the server publish governance invariants</li>
-      <li>Tool definition quality -- are tool descriptions, schemas, and annotations well-formed</li>
-      <li>Audit endpoints -- does the server expose an audit log or transparency endpoint</li>
-      <li>Agent.json -- does the server publish a <code>/.well-known/agent.json</code> file</li>
-      <li>HTTPS -- is the connection encrypted</li>
+      <li><strong>Reachability</strong> -- can the MCP endpoint be reached, and how fast does it respond</li>
+      <li><strong>Governance declarations</strong> -- does the server publish governance invariants that describe its operating rules</li>
+      <li><strong>Tool definition quality</strong> -- are tool names, descriptions, input schemas, and annotations well-formed and complete</li>
+      <li><strong>Audit endpoints</strong> -- does the server expose an audit log or transparency endpoint for accountability</li>
+      <li><strong>agent.json</strong> -- does the server publish a <code>/.well-known/agent.json</code> discovery file</li>
+      <li><strong>HTTPS</strong> -- is the connection encrypted end to end</li>
     </ul>
 
-    <h2>Trust Recommendations</h2>
+    <h2>Trust Score Recommendations</h2>
+
+    <p>The trust score maps to a plain-language recommendation so agents and developers can make fast decisions.</p>
+
     <ul>
-      <li><strong>PROCEED</strong> (75-100) -- Server meets governance standards</li>
-      <li><strong>PROCEED WITH CAUTION</strong> (50-74) -- Some governance gaps, review before transacting</li>
-      <li><strong>HIGH RISK</strong> (25-49) -- Significant governance concerns</li>
-      <li><strong>DO NOT TRANSACT</strong> (0-24) -- Server does not meet minimum standards</li>
+      <li><strong>PROCEED</strong> (75-100) -- server meets governance standards, safe to transact</li>
+      <li><strong>PROCEED WITH CAUTION</strong> (50-74) -- some governance gaps, review before authorizing payments</li>
+      <li><strong>HIGH RISK</strong> (25-49) -- significant governance concerns, not recommended for sensitive tasks</li>
+      <li><strong>DO NOT TRANSACT</strong> (0-24) -- server does not meet minimum trust standards</li>
     </ul>
 
-    <h2>Usage</h2>
+    <h2>How to Use It</h2>
 
-    <h3>Example Input</h3>
+    <p>Connect to the Agentic Platform MCP endpoint, then call <code>evaluate_service</code> with the URL of the MCP server you want to evaluate.</p>
+
+    <h3>Step 1: Connect</h3>
+
+    <div class="connect-box">
+      <h3>Claude Code</h3>
+      <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+
+      <h3>Claude Desktop / Cursor</h3>
+      <pre><code>{
+  "mcpServers": {
+    "agentic-platform": {
+      "url": "https://api.asalvocreative.com/mcp"
+    }
+  }
+}</code></pre>
+
+      <h3>Smithery</h3>
+      <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
+    </div>
+
+    <h3>Step 2: Call evaluate_service</h3>
+
     <pre><code>evaluate_service({
   server_url: "https://example.com/mcp",
   task_context: "I need to use this server for code generation"
@@ -114,24 +189,11 @@ Checks:
 Summary: Server is functional but lacks transparency.
          Review tool definitions before authorizing payments.</code></pre>
 
-    <h2>Connect</h2>
+    <h2>When to Use evaluate_service</h2>
 
-    <div class="connect-box">
-      <h3>Claude Code</h3>
-      <pre><code>claude mcp add agentic-platform --transport http https://api.asalvocreative.com/mcp</code></pre>
+    <p>Run an evaluation before connecting to any MCP server you have not used before. This is especially important before authorizing payments, sharing sensitive data, or delegating critical tasks to a third-party service.</p>
 
-      <h3>Claude Desktop / Cursor</h3>
-      <pre><code>{
-  "mcpServers": {
-    "agentic-platform": {
-      "url": "https://api.asalvocreative.com/mcp"
-    }
-  }
-}</code></pre>
-
-      <h3>Smithery</h3>
-      <pre><code>npx -y @smithery/cli@latest install agentic-platform--andysalvo.run.tools --client claude</code></pre>
-    </div>
+    <p>AI agents can call <code>evaluate_service</code> programmatically as part of their workflow. Before an agent transacts with a new MCP service, it can check the trust score and only proceed if the score meets a threshold.</p>
 
     <hr>
 
