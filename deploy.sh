@@ -4,7 +4,9 @@
 
 set -e
 
-VM="openclaw"  # SSH alias for 165.22.46.178
+# VM ssh alias is configured in your local ~/.ssh/config; set
+# AGENTIC_PLATFORM_DEPLOY_VM in your environment to override.
+VM="${AGENTIC_PLATFORM_DEPLOY_VM:-mcp-host}"
 REMOTE_DIR="/home/andy/agentic-platform"
 SERVER_DIR="$(dirname "$0")"
 
