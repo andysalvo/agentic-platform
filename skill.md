@@ -33,7 +33,7 @@ domain.
 ## Server URL
 
 ```
-http://165.22.46.178:8080/mcp
+https://platform.crestsystems.ai/mcp
 ```
 
 ## MCP Client Config
@@ -42,7 +42,7 @@ http://165.22.46.178:8080/mcp
 {
   "mcpServers": {
     "agentic-platform": {
-      "url": "http://165.22.46.178:8080/mcp"
+      "url": "https://platform.crestsystems.ai/mcp"
     }
   }
 }

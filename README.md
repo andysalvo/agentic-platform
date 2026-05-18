@@ -16,7 +16,7 @@ Add to your MCP client configuration:
 {
   "mcpServers": {
     "agentic-platform": {
-      "url": "http://165.22.46.178:8080/mcp"
+      "url": "https://platform.crestsystems.ai/mcp"
     }
   }
 }
@@ -25,7 +25,7 @@ Add to your MCP client configuration:
 ### Claude Code
 
 ```bash
-claude mcp add agentic-platform --transport http http://165.22.46.178:8080/mcp
+claude mcp add agentic-platform --transport http https://platform.crestsystems.ai/mcp
 ```
 
 ### Docker

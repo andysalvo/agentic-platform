@@ -11,7 +11,7 @@
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://api.asalvocreative.com/mcp"
+      "url": "https://platform.crestsystems.ai/mcp"
     }
   ]
 }

@@ -65,7 +65,7 @@ SKILLS = {
 # Stripe config
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
-SERVER_URL = os.environ.get("SERVER_URL", "http://165.22.46.178:8080")
+SERVER_URL = os.environ.get("SERVER_URL", "https://platform.crestsystems.ai")
 
 # Price IDs from Stripe (set after creating products)
 STRIPE_PRICE_50 = os.environ.get("STRIPE_PRICE_50", "")    # $5 / 50 credits
@@ -427,7 +427,7 @@ async def health(request: Request):
 
 async def well_known_agent_json(request: Request):
     """Serve /.well-known/agent.json describing the platform."""
-    server_url = os.environ.get("SERVER_URL", "http://165.22.46.178:8080")
+    server_url = os.environ.get("SERVER_URL", "https://platform.crestsystems.ai")
     audit_log = get_audit_log(hours=24)
 
     agent_info = {
