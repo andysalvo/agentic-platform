@@ -3,7 +3,7 @@
   "name": "io.github.andysalvo/agentic-platform",
   "title": "Agentic Platform",
   "description": "Free MCP tools: the only MCP linter, health checks, cost estimation, and trust evaluation.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "repository": {
     "url": "https://github.com/andysalvo/agentic-platform",
     "source": "github"
