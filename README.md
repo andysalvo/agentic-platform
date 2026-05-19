@@ -71,6 +71,16 @@ Works with Claude Desktop, Claude Code, VS Code, Cursor, Cline, and any MCP-comp
 - **Expert skills:** 10 free calls/day per API key.
 - **Credit packs:** $5 (50 credits) or $20 (250 credits) via Stripe.
 
+## Crest Service Fleet
+
+| Service | URL | Purpose |
+|---------|-----|---------|
+| **Verify API** | [verify.crestsystems.ai](https://verify.crestsystems.ai) | Conformance verification for x402 action_ref. Submit receipts, get signed verdicts with public permalinks. |
+| **Trust Check** | [supership.crestsystems.ai/check](https://supership.crestsystems.ai/check) | Free pre-payment trust oracle for x402 agent commerce. |
+| **Conformance** | [crestsystems.ai/conformance](https://crestsystems.ai/conformance) | Public conformance results matrix for action-ref-v1. |
+| **x402 Audit** | [audit.crestsystems.ai](https://audit.crestsystems.ai) | Smart contract audit, code scan, wallet risk profiling ($0.25-$1.00 USDC). |
+| **x402 Data** | [data.crestsystems.ai](https://data.crestsystems.ai) | Crypto market data ($0.01/call USDC on Base). |
+
 ## Governance
 
 This platform operates under three core invariants:
@@ -83,7 +93,7 @@ These apply to the platform itself, not just its users.
 
 ## Keywords
 
-MCP server, MCP linter, MCP validator, MCP manifest lint, agent governance, agent health check, agent cost estimator, AI agent tools, Model Context Protocol, MCP tool validation, agent diagnostics, governance scoring
+MCP server, MCP linter, MCP validator, MCP manifest lint, agent governance, agent health check, agent cost estimator, AI agent tools, Model Context Protocol, MCP tool validation, agent diagnostics, governance scoring, x402 conformance, action-ref verification, agent accountability, trust oracle, agent commerce
 
 ## License
 
